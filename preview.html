@@ -281,45 +281,60 @@
     </div>
   </div>
 
-  <!-- PDF.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script>
-    // PDF.js worker
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-      "module/pdf.worker.min.js";
-
-    const previewBook = localStorage.getItem("previewedBook");
-
-    if (!previewBook) {
-      alert("No preview book found in localStorage!");
-    } else {
-      fetch("http://127.0.0.1:5000/get-books")
-        .then(res => res.json())
-        .then(allBooks => {
-          const book = allBooks.find(
-            b => b.title?.trim().toLowerCase() === previewBook.trim().toLowerCase()
-          );
-          if (!book || !book.pdf) {
-            console.error("Book PDF not found in database");
-            return;
-          }
-
-          // Use only the filename, remove any folders
-          let filename = book.pdf.split(/[/\\]/).pop(); // split by / or \
-
-          // Remove parentheses or underscores at the start
-          filename = filename.replace(/^\(.*?\)/, "").replace(/^[_\s]+/, "");
-
-          // Construct URL correctly
-          const url = `/books-pdf/${filename}`;
-          console.log("Loading PDF:", url); // /books-pdf/qrcode-barcode-demo.pdf
-
-          initPDF(url);
-        })
-        .catch(err => console.error("Error fetching books:", err));
 
 
-    }
+  
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  // Set the worker
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  const canvas = document.getElementById("mainCanvas");
+  const ctx = canvas.getContext("2d");
+  const pageInfo = document.getElementById("pageInfo");
+
+  // Replace this with your PDF path
+  const previewBook = localStorage.getItem("previewedBook");
+  const pdfPath = previewBook ? `/books-pdf/${previewBook}.pdf` : null;
+
+  if (!pdfPath) {
+    alert("No preview book found!");
+  } else {
+    pdfjsLib.getDocument(pdfPath).promise.then(pdfDoc => {
+      let currentPage = 1;
+
+      function renderPage(pageNum) {
+        pdfDoc.getPage(pageNum).then(page => {
+          const scale = 1.0;
+          const viewport = page.getViewport({ scale });
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+
+          page.render({ canvasContext: ctx, viewport }).promise.then(() => {
+            pageInfo.textContent = `${pageNum} / ${pdfDoc.numPages}`;
+          });
+        });
+      }
+
+      // Initial render
+      renderPage(currentPage);
+
+      // Optional: simple zoom in/out
+      document.getElementById("zoomIn").onclick = () => {
+        renderPage(currentPage, scale + 0.2);
+      };
+      document.getElementById("zoomOut").onclick = () => {
+        renderPage(currentPage, scale - 0.2);
+      };
+    });
+  }
+
+  // Close button
+  document.getElementById("closeBtn").onclick = () => {
+    location.href = 'browse-book.html';
+  };
+
 
 
 
