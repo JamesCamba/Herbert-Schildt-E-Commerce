@@ -887,6 +887,10 @@ def update_password():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
+@app.route("/", methods=["GET"])
+def home():
+    return "<h1>📚 E-Commerce API is running!</h1><p>Use the endpoints to interact with the system.</p>"
+
 
 if __name__ == "__main__":
     app.run(debug=True)
