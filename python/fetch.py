@@ -12,11 +12,12 @@ from urllib.parse import quote
 import traceback
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
+from flask import Flask, send_from_directory
 
 
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='')
 CORS(app)  # ✅ Enable CORS for all routes
 
 # Database connection function (reusable)
@@ -889,7 +890,7 @@ def update_password():
 
 @app.route("/", methods=["GET"])
 def home():
-    return "<h1>📚 E-Commerce API is running!</h1><p>Use the endpoints to interact with the system.</p>"
+    return send_from_directory("", "index.html")
 
 
 if __name__ == "__main__":
