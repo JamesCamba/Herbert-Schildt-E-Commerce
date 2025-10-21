@@ -295,27 +295,18 @@
   const pageInfo = document.getElementById("pageInfo");
 
   // Replace this with your PDF path
-  const previewBook = localStorage.getItem("previewedBook");
-  const pdfPath = previewBook ? `/books-pdf/${previewBook}.pdf` : null;
+const previewBook = localStorage.getItem("previewedBook");
 
-  if (!pdfPath) {
-    alert("No preview book found!");
-  } else {
-    pdfjsLib.getDocument(pdfPath).promise.then(pdfDoc => {
-      let currentPage = 1;
+fetch("https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/all-books.json")
+  .then(res => res.json())
+  .then(allBooks => {
+      const book = allBooks.find(b => b.title?.trim() === previewBook?.trim());
+      if (!book || !book.pdf) return alert("PDF not found for this book!");
+      
+      const url = book.pdf; // Use full GitHub raw URL
+      initPDF(url);         // Call your main PDF.js function
+  });
 
-      function renderPage(pageNum) {
-        pdfDoc.getPage(pageNum).then(page => {
-          const scale = 1.0;
-          const viewport = page.getViewport({ scale });
-          canvas.width = viewport.width;
-          canvas.height = viewport.height;
-
-          page.render({ canvasContext: ctx, viewport }).promise.then(() => {
-            pageInfo.textContent = `${pageNum} / ${pdfDoc.numPages}`;
-          });
-        });
-      }
 
       // Initial render
       renderPage(currentPage);
