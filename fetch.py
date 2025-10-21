@@ -13,10 +13,10 @@ import traceback
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
 from flask import Flask, send_from_directory
+from flask import jsonify
 
 
-
-
+BOOKS_JSON_PATH = os.path.join(os.path.dirname(__file__), "all-books.json")
 app = Flask(__name__, static_folder="", static_url_path="")
 CORS(app)  # ✅ Enable CORS for all routes
 
@@ -428,23 +428,33 @@ def get_fullname():
         return jsonify({"success": False, "message": "User not found"}), 404
 
 
+#@app.route("/get-books", methods=["GET"])
+#def get_books():
+#    conn = get_db_connection()
+#    cursor = conn.cursor()
+#    cursor.execute("""
+#        SELECT id, title, author, description, price, category, rating,
+#               image, year, pages, isbn, pdf, amazon, noStock
+#        FROM Books
+#    """)
+#
+#    columns = [column[0] for column in cursor.description]
+#    books = []
+#    for row in cursor.fetchall():
+#        books.append(dict(zip(columns, row)))
+#
+#    conn.close()
+#    return jsonify(books)
+
+
 @app.route("/get-books", methods=["GET"])
 def get_books():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT id, title, author, description, price, category, rating,
-               image, year, pages, isbn, pdf, amazon, noStock
-        FROM Books
-    """)
-
-    columns = [column[0] for column in cursor.description]
-    books = []
-    for row in cursor.fetchall():
-        books.append(dict(zip(columns, row)))
-
-    conn.close()
-    return jsonify(books)
+    try:
+        with open(BOOKS_JSON_PATH, "r", encoding="utf-8") as f:
+            books = json.load(f)
+        return jsonify(books)
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
 
 
 @app.route('/pay-cart', methods=['POST'])
@@ -894,4 +904,5 @@ def home():
 
 
 if __name__ == "__main__":
+
     app.run(debug=True)
