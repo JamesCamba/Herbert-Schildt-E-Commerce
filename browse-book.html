@@ -286,7 +286,7 @@
 modalPreviewBtn.addEventListener("click", async () => {
     const bookTitle = document.querySelector(".modal .book-details h2").innerText;
     try {
-        const response = await fetch("https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/refs/heads/main/all-books.json");
+        const response = await fetch("https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/all-books.json");
         const books = await response.json();
         const book = books.find(b => b.title === bookTitle);
         if (book && book.pdf) {
@@ -575,7 +575,7 @@ modalPreviewBtn.addEventListener("click", async () => {
                 const bookTitle = bookItem.querySelector(".bookTitle").innerText.trim();
 
                 try {
-                    const response = await fetch("https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/refs/heads/main/all-books.json");
+                    const response = await fetch("https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/all-books.json");
                     const books = await response.json();
 
                     const book = books.find(b => b.title.trim() === bookTitle);
@@ -629,7 +629,7 @@ modalPreviewBtn.addEventListener("click", async () => {
 async function savePreviewedBook(li) {
     const bookTitle = li.querySelector(".bookTitle").textContent;
     try {
-        const response = await fetch("https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/refs/heads/main/all-books.json");
+        const response = await fetch("https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/all-books.json");
         const books = await response.json();
         const book = books.find(b => b.title === bookTitle);
         if (book && book.pdf) {
@@ -860,7 +860,7 @@ async function savePreviewedBook(li) {
 
                 // Load all books
                 try {
-                    const response = await fetch("https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/refs/heads/main/all-books.json");
+                    const response = await fetch("https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/all-books.json");
                     const data = await response.json();
                     const booksList = document.getElementById("booksList");
                     booksList.innerHTML = "";
