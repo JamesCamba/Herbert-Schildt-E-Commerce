@@ -11,7 +11,7 @@
     "year": 2022,
     "pages": 1248,
     "isbn": "978-1260454468",
-    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/Java%20-%20A%20Beginners%20Guide%203rd%20Edition.pdf",
+    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/Java%20-%20A_Beginners_Guide_3rd_Edition.pdf",
     "inStock": true,
     "featured": true
   },
@@ -27,7 +27,7 @@
     "year": 2021,
     "pages": 1056,
     "isbn": "978-0070532465",
-    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/c%20the%20complete%20reference%204th%20edition%20-%20herbert%20schildt.pdf",
+    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/c++_A_Beginner_s_Guide,%20Second%20Edition%20by%20Herbert%20Schildt.pdf",
     "inStock": true,
     "featured": true
   },
@@ -59,7 +59,7 @@
     "year": 2023,
     "pages": 512,
     "isbn": "978-1260454472",
-    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/Java%20-%20A%20Beginner's%20Guide%203rd%20Edition.pdf",
+    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/Java%20-%20A_Beginner_s_Guide_3rd_Edition.pdf",
     "inStock": true,
     "featured": false
   },
@@ -75,7 +75,7 @@
     "year": 2022,
     "pages": 480,
     "isbn": "978-1260454473",
-    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/C++_%20A%20Beginner's%20Guide,%20Second%20Edition%20by%20Herbert%20Schildt.pdf",
+    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/C++_%20A_Beginner_s_Guide,%20Second%20Edition%20by%20Herbert%20Schildt.pdf",
     "inStock": true,
     "featured": false
   },
