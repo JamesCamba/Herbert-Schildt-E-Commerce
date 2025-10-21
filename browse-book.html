@@ -613,14 +613,23 @@
 
 
 
-            function savePreviewedBook(li) {
-                const bookTitle = li.querySelector(".bookTitle").textContent;
-                localStorage.setItem("previewedBook", bookTitle);
-                console.log(`Saved book: ${bookTitle}`);
-                // Opens in a new tab
-                window.open('preview.html', '_blank');
+async function savePreviewedBook(li) {
+    const bookTitle = li.querySelector(".bookTitle").textContent;
+    try {
+        const response = await fetch("https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/refs/heads/main/all-books.json");
+        const books = await response.json();
+        const book = books.find(b => b.title === bookTitle);
+        if (book && book.pdf) {
+            window.open(book.pdf, "_blank"); // open GitHub PDF directly
+        } else {
+            alert("PDF not found for this book.");
+        }
+    } catch (err) {
+        console.error("Error fetching book JSON:", err);
+        alert("Failed to load book PDF.");
+    }
+}
 
-            }
 
             function savePreviewedBookByTitle(title) {
                 localStorage.setItem("previewedBook", title);
