@@ -11,7 +11,7 @@
     "year": 2022,
     "pages": 1248,
     "isbn": "978-1260454468",
-    "pdf": "books-pdf/_Java_The_Complete_Reference_13th_Ed_-_Herbert_Schildt (1).pdf",
+    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/Java%20-%20A%20Beginners%20Guide%203rd%20Edition.pdf",
     "inStock": true,
     "featured": true
   },
@@ -26,11 +26,10 @@
     "image": "img/books/c++ complete.jpg",
     "year": 2021,
     "pages": 1056,
-    "pdf": "books-pdf/c++ the complete reference, 4th edition - herbert schildt.pdf",
     "isbn": "978-0070532465",
+    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/c%20the%20complete%20reference%204th%20edition%20-%20herbert%20schildt.pdf",
     "inStock": true,
     "featured": true
-
   },
   {
     "id": 3,
@@ -44,7 +43,7 @@
     "year": 2020,
     "pages": 976,
     "isbn": "978-0072121574",
-    "pdf": "books-pdf/C The Complete Reference 4th Ed Herbert Schildt.pdf",
+    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/C%20The%20Complete%20Reference%204th%20Ed%20Herbert%20Schildt.pdf",
     "inStock": true,
     "featured": true
   },
@@ -60,7 +59,7 @@
     "year": 2023,
     "pages": 512,
     "isbn": "978-1260454472",
-    "pdf": "books-pdf/Java - A Beginner's Guide, 3rd Edition.pdf",
+    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/Java%20-%20A%20Beginner's%20Guide%203rd%20Edition.pdf",
     "inStock": true,
     "featured": false
   },
@@ -76,13 +75,13 @@
     "year": 2022,
     "pages": 480,
     "isbn": "978-1260454473",
-    "pdf": "books-pdf/C++_ A Beginner's Guide, Second Edition by Herbert Schildt.pdf",
+    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/C++_%20A%20Beginner's%20Guide,%20Second%20Edition%20by%20Herbert%20Schildt.pdf",
     "inStock": true,
     "featured": false
   },
   {
     "id": 6,
-   "title": "Java Programming Cookbook",
+    "title": "Java Programming Cookbook",
     "author": "Herb Schildt",
     "description": "Java Programming Cookbook concepts including multithreading, networking, database connectivity, and enterprise features.",
     "price": 64.99,
@@ -92,11 +91,10 @@
     "year": 2023,
     "pages": 896,
     "isbn": "978-1260454474",
-    "pdf": "books-pdf/[Herb_Schildt]_Herb_Schildt's_Java_Programming_Coo(libcats.org).pdf",
+    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/Herb_Schildts_Java_Programming_Cook.pdf",
     "inStock": true,
     "featured": false
   },
-
   {
     "id": 7,
     "title": "C++ Templates and STL",
@@ -109,26 +107,10 @@
     "year": 2021,
     "pages": 784,
     "isbn": "978-1260454475",
+    "pdf": "https://www.goodreads.com/book/show/1672562.STL_Programming_from_the_Ground_Up",
     "inStock": true,
     "featured": "",
     "goodsread": "https://www.goodreads.com/book/show/1672562.STL_Programming_from_the_Ground_Up",
     "noStock": true
-  },
-
-  {
-    "id": 8,
-    "title": "Teach Yourself C",
-    "author": "Herb Schildt",
-    "description": "Learn C programming fundamentals with clear explanations and practical examples.",
-    "price": 29.99,
-    "category": "c",
-    "rating": 4.5,
-    "image": "img/books/c.jpg",
-    "year": 2022,
-    "pages": 400,
-    "isbn": "978-1260454476",
-    "amazon": "https://www.amazon.fr/-/en/Herbert-Schildt/dp/0078823110",
-    "inStock": true,
-    "featured": false
   }
 ]
