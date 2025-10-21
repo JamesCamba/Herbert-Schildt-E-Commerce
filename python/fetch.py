@@ -17,7 +17,7 @@ from flask import Flask, send_from_directory
 
 
 
-app = Flask(__name__, static_url_path='', static_folder='')
+app = Flask(__name__, static_folder="", static_url_path="")
 CORS(app)  # ✅ Enable CORS for all routes
 
 # Database connection function (reusable)
@@ -890,7 +890,7 @@ def update_password():
 
 @app.route("/", methods=["GET"])
 def home():
-    return send_from_directory("", "index.html")
+    return app.send_static_file("index.html")
 
 
 if __name__ == "__main__":
