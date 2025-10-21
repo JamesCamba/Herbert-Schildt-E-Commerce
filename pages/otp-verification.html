@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Code Verification - Herbert Schildt</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/otp-verification.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <img src="../img/logo-white.svg" alt="Herbert Schildt Logo" class="logo-image">
+            </div>
+        </div>
+        <nav class="nav">
+            <a href="../index.html" class="nav-link">Home</a>
+            <a href="#" class="nav-link">About</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="otp-container">
+            <div class="otp-card">
+                <h2 class="otp-title">OTP Code Verification</h2>
+                <p class="otp-subtitle" id="otpSubtitle"></p>
+                <h2></h2>
+                <form class="otp-form" id="otpForm">
+                    <div class="otp-inputs">
+                        <input type="text" class="otp-input" maxlength="1" data-index="0">
+                        <input type="text" class="otp-input" maxlength="1" data-index="1">
+                        <input type="text" class="otp-input" maxlength="1" data-index="2">
+                        <input type="text" class="otp-input" maxlength="1" data-index="3">
+                        <input type="text" class="otp-input" maxlength="1" data-index="4">
+                    </div>
+                    <button type="submit" class="next-btn" id="nextBtn" disabled>Next</button>
+                </form>
+
+                <div class="otp-actions">
+                    <a href="forgot-password.html" class="go-back-link">Go back</a>
+                    <button type="button" class="resend-btn" id="resendBtn">Resend OTP</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/otp-verification.js"></script>
+    <script>
+       const emailOTP = JSON.parse(localStorage.getItem("emailOTP")); // ❌ Error
+
+        console.log(emailOTP)
+    </script>
+</body>
+
+</html>

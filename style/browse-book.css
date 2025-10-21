@@ -1,0 +1,1042 @@
+.browse {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 1rem;
+    text-align: center;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+.browse .browse-search {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    height: 3rem;
+    margin-top: 2rem;
+}
+
+.browse-container-search {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.browse-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    font-family: 'Inter Semibold';
+}
+
+.browse-info h1 {
+    font-size: 4rem;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    color: #695959;
+}
+
+.browse-info p {
+    color: #695959;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: 'Inter Regular';
+    letter-spacing: 1px;
+}
+
+.browse-search input {
+    border: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0 1rem;
+    outline: none;
+    width: 20rem;
+    font-family: 'Inter SemiBold';
+    font-size: 1rem;
+    box-shadow: 1px 9px 6px rgba(0, 0, 0, 0.1);
+}
+
+.browse-search input::placeholder {
+    font-family: 'Inter SEMIBOLD';
+}
+
+.browse-search button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #B73939;
+    border: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 3rem;
+    box-shadow: 1px 9px 6px rgba(0, 0, 0, 0.1);
+    width: 7rem;
+}
+
+.browse-search button img {
+    height: 2.6rem;
+}
+
+.categories {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    margin: 4rem auto;
+    font-family: 'Inter Semibold';
+    color: black;
+    width: 100%;
+    max-width: 100%;
+}
+
+.categories h1 {
+    font-size: 3em;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    color: #695959;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.categories ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.categories li {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 13rem;
+    width: 20rem;
+    padding: 1rem;
+    box-shadow: 1px 9px 6px rgba(0, 0, 0, 0.432);
+    gap: 0.5rem;
+    background-color: #4C4C4C;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+
+
+.categories li:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid #4C4C4C;
+}
+
+.categories li:hover img {
+    filter: brightness(0) saturate(100%) invert(20%);
+}
+
+
+.categories li:active {
+    scale: 0.9;
+}
+
+.categories li img {
+    height: 5em;
+}
+
+.categories h3 {
+    font-size: 1.5em;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.categories p {
+    font-size: 0.9em;
+    font-weight: 100;
+    font-family: 'Inter Light';
+    width: 100%;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.featured-books {
+    height: auto;
+    padding: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+}
+
+.featured-books>h1 {
+    color: rgba(0, 0, 0, 0.70);
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: 'Inter Medium';
+    font-size: 3em;
+    font-style: normal;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-align: center;
+    line-height: normal;
+    padding: 4rem 0;
+}
+
+.featured-books ul li {
+    height: 27rem;
+    overflow: hidden;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    color: #FFF;
+    font-family: 'Inter Regular';
+    border: 1px solid #000;
+    background: #675959;
+    box-shadow: 2px 9px 20px rgba(0, 0, 0, 0.651);
+    width: 23rem;
+    transition: all 0.5s ease-in-out;
+}
+
+.featured-books li:hover {
+    box-shadow: 3px 9px 20px rgba(0, 0, 0, 0.801);
+    transform: translateY(-5px);
+}
+
+
+.featured-books .img-book {
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+}
+
+
+.img-book:hover::before {
+    opacity: 1;
+}
+
+.img-book:hover button {
+    opacity: 1;
+}
+
+.img-book button {
+    background-color: #be2424;
+    color: white;
+    width: 8rem;
+    height: 3rem;
+    font-size: 1.1em;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-family: 'Inter SemiBold';
+    z-index: 1;
+    opacity: 0;
+}
+
+.img-book::before {
+    opacity: 0;
+    content: '';
+    height: 100%;
+    width: 100%;
+    display: var(--hide-before, block);
+    /* block by default */
+    background-color: #00000049;
+    position: absolute;
+    z-index: 0;
+}
+
+.featured-books ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.featured-books ul li p {
+    font-size: 0.9em;
+}
+
+
+.featured-books .img-book {
+    height: 12rem;
+    width: inherit;
+    background-color: lightgray;
+    background-image: url("../img/books/Java Complete.jpg");
+    background-position: 0 -22.328px;
+    background-size: 100% 253.06%;
+    background-repeat: no-repeat;
+
+}
+
+.featured-books .book-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.5rem;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.book-info h2 {
+    text-wrap: nowrap;
+    letter-spacing: 1px;
+}
+
+.book-info::before {
+    content: '';
+    background-color: #675959;
+    background: linear-gradient(to right, #675959e8, #675959dc);
+    width: 4rem;
+    box-shadow: 10 8px 8px #675959;
+    /* x y blur color */
+    height: 2rem;
+    position: absolute;
+    top: 3%;
+    left: 95%;
+}
+
+.book-info p {
+    padding: 1rem 0;
+    font-family: 'Inter Light';
+}
+
+.book-r-p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.book-r-p h1 {
+    font-size: 1.8em;
+    color: white;
+    font-style: normal;
+    font-family: 'Inter Medium' !important;
+    letter-spacing: 2px;
+}
+
+.btn-books {
+    display: flex;
+    margin-top: 0.5rem;
+    gap: 1rem;
+}
+
+.btn-books button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+    font-weight: 800;
+    border-radius: 5px;
+    font-family: 'Inter SemiBold';
+    border: 1px solid black;
+    gap: 0.5rem;
+    height: 3em;
+    transition: 0.5s ease-in-out;
+}
+
+
+
+.btn-books button:hover {
+    transform: translateY(-5px);
+}
+
+.btn-books button:nth-child(1) {
+    width: 8rem;
+    color: #675959;
+}
+
+.btn-books button:nth-child(2) {
+    width: 12rem;
+    color: white;
+    background-color: #B73939;
+}
+
+.banner-post {
+    display: flex;
+    justify-content: center;
+    height: 80vh;
+    align-items: center;
+}
+
+.banner {
+    border-radius: 5px;
+    border: 1px solid #4C4C4C;
+    width: 70%;
+    height: 20rem;
+    display: flex;
+    font-family: 'Inter semibold';
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+    background-color: #4C4C4C;
+}
+
+.banner h2 {
+    font-size: 1.8em;
+    font-style: normal;
+    color: white;
+    width: 80%;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+}
+
+.banner button {
+    width: 50%;
+    font-family: 'Inter Semibold';
+    font-size: 1.4em;
+    height: 3rem;
+    color: white;
+    background-color: #B73939;
+    border: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    transition: all 0.5s ease-in-out;
+}
+
+.banner button:hover {
+    transform: translateY(-5px);
+    color: black;
+    background-color: white;
+}
+
+
+.bookTitle {
+    white-space: nowrap;
+
+}
+
+button {
+    transition: 0.1s ease-in !important;
+}
+
+
+.amazon-btn,
+.goodreads-btn {
+    width: 100% !important;
+}
+
+.amazon-btn {
+    margin-top: 1rem;
+    background-image: url(../img/amazon-btn.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px !important;
+}
+
+.goodreads-btn {
+    background: url(../img/goodreads.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 2rem;
+    color: #777;
+    font-size: 0.95rem;
+}
+
+.download-btn {
+    font-family: 'Inter SemiBold';
+    width: 100% !important;
+    position: relative;
+    background-color: #8E0028;
+    font-size: 1.3em !important;
+    color: white !important;
+    height: 2.4em !important;
+}
+
+.download-btn::before {
+    content: " ";
+    width: 16%;
+    height: 90%;
+    background-image: url(../img/Book.svg);
+    left: 23%;
+    top: 20%;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Large screens (desktops) - Scalable approach */
+@media (min-width: 1200px) {
+    .browse {
+        padding: 0 2vw;
+    }
+    
+    .browse-info h1 {
+        font-size: 4rem;
+    }
+    
+    .browse-search {
+        width: 50vw;
+        max-width: 600px;
+    }
+    
+    .categories {
+        width: 100%;
+        max-width: 100%;
+        margin: 4rem auto;
+    }
+    
+    .categories ul {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .featured-books {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Maintain 3 books per row */
+    .featured-books ul {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+}
+
+/* Desktop and larger screens - Scalable approach */
+@media (min-width: 1025px) and (max-width: 1199px) {
+    .browse {
+        padding: 0 1.5vw;
+    }
+    
+    /* Maintain 3 books per row */
+    .featured-books ul {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* Medium screens (tablets) */
+@media (max-width: 1024px) {
+    .browse {
+        height: auto;
+        padding: 2rem 3vw;
+        gap: 2rem;
+    }
+    
+    .browse-info h1 {
+        font-size: 3rem;
+    }
+    
+    .browse-search input {
+        width: 15rem;
+    }
+    
+    .categories {
+        margin: 2rem auto;
+        min-height: auto;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .categories h1 {
+        font-size: 2.5em;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .categories ul {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        justify-content: center;
+    }
+    
+    .categories li {
+        width: 100%;
+        max-width: 300px;
+        height: 10rem;
+    }
+    
+    .featured-books {
+        padding: 2rem 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .featured-books > h1 {
+        font-size: 2.5em;
+        padding: 2rem 0;
+    }
+    
+    .featured-books ul {
+        margin: 0 auto;
+        gap: 2rem;
+        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1000px;
+        width: 100%;
+    }
+    
+    .featured-books ul li {
+        width: 100%;
+        max-width: 20rem;
+        height: 25rem;
+    }
+    
+    .featured-books .img-book {
+        height: 10rem;
+    }
+    
+    .banner {
+        width: 90%;
+        height: 18rem;
+    }
+    
+    .banner h2 {
+        font-size: 1.5em;
+    }
+}
+
+/* Small screens (mobile phones) */
+@media (max-width: 768px) {
+    .browse {
+        height: auto;
+        padding: 1rem 0.5rem;
+        gap: 1.5rem;
+        margin-top: 5rem; /* Account for fixed header */
+    }
+    
+    .browse-info h1 {
+        font-size: 2.2rem;
+    }
+    
+    .browse-info p {
+        font-size: 0.9em;
+        padding: 0 1rem;
+    }
+    
+    .browse-search {
+        flex-direction: column;
+        gap: 1rem;
+        height: auto;
+    }
+    
+    .browse-search input {
+        width: 100%;
+        max-width: 300px;
+        height: 2.5rem;
+    }
+    
+    .browse-search button {
+        width: 100%;
+        max-width: 300px;
+        height: 2.5rem;
+    }
+    
+    .categories {
+        margin: 1rem auto;
+        padding: 0 1rem;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .categories h1 {
+        font-size: 2em;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    
+    .categories ul {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        justify-content: center;
+    }
+    
+    .categories li {
+        width: 100%;
+        max-width: 280px;
+        height: 8rem;
+        padding: 0.8rem;
+    }
+    
+    .categories li img {
+        height: 3em;
+    }
+    
+    .categories h3 {
+        font-size: 1.2em;
+    }
+    
+    .categories p {
+        font-size: 0.8em;
+    }
+    
+    .featured-books {
+        padding: 1rem 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .featured-books > h1 {
+        font-size: 2em;
+        padding: 1.5rem 0;
+    }
+    
+    .featured-books ul {
+        margin: 0 auto;
+        gap: 1rem;
+        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1000px;
+        width: 100%;
+        padding: 0 1vw;
+    }
+    
+    .featured-books ul li {
+        width: 100%;
+        max-width: 280px;
+        height: 22rem;
+        padding: 0.3rem;
+    }
+    
+    .featured-books .img-book {
+        height: 11rem;
+    }
+    
+    .featured-books .book-info {
+        padding: 0.6rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .book-info h2 {
+        font-size: 1em;
+        white-space: normal;
+        line-height: 1.2;
+        margin-bottom: 0.3rem;
+        text-align: center;
+    }
+    
+    .book-info p {
+        font-size: 0.75em;
+        padding: 0.3rem 0;
+        line-height: 1.2;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 2.4em;
+        text-align: center;
+    }
+    
+    .book-r-p {
+        margin-top: auto;
+        text-align: center;
+    }
+    
+    .book-r-p h1 {
+        font-size: 1.2em;
+        margin-bottom: 0.3rem;
+    }
+    
+    .btn-books {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        margin-top: 0.3rem;
+    }
+    
+    .btn-books button {
+        width: 100%;
+        height: 2.2rem;
+        font-size: 0.8em;
+        padding: 0.3rem;
+        border-radius: 3px;
+    }
+    
+    .btn-books {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 0.8rem;
+    }
+    
+    .btn-books button {
+        width: 100% !important;
+        height: 2.5em;
+        font-size: 0.9em;
+    }
+    
+    .banner-post {
+        height: auto;
+        padding: 2rem 1rem;
+    }
+    
+    .banner {
+        width: 100%;
+        height: 15rem;
+        padding: 1rem;
+    }
+    
+    .banner h2 {
+        font-size: 1.3em;
+        width: 100%;
+    }
+    
+    .banner button {
+        width: 80%;
+        font-size: 1.2em;
+        height: 2.5rem;
+    }
+}
+
+/* Extra small screens (very small phones) */
+@media (max-width: 480px) {
+    .browse {
+        padding: 0.8rem 0.3rem;
+        margin-top: 5rem;
+    }
+    
+    .browse-info h1 {
+        font-size: 1.8rem;
+    }
+    
+    .browse-info p {
+        font-size: 0.8em;
+    }
+    
+    .browse-search input {
+        height: 2.2rem;
+        font-size: 0.9rem;
+    }
+    
+    .browse-search button {
+        height: 2.2rem;
+    }
+    
+    .categories {
+        margin: 1rem auto;
+        padding: 0 0.5rem;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .categories h1 {
+        font-size: 1.6em;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    
+    .categories ul {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.8rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        justify-content: center;
+    }
+    
+    .categories li {
+        width: 100%;
+        max-width: 260px;
+        height: 7rem;
+        padding: 0.6rem;
+    }
+    
+    .categories li img {
+        height: 2.5em;
+    }
+    
+    .categories h3 {
+        font-size: 1.1em;
+    }
+    
+    .categories p {
+        font-size: 0.7em;
+    }
+    
+    .featured-books > h1 {
+        font-size: 1.6em;
+    }
+    
+    .featured-books ul {
+        gap: 0.8rem;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1000px;
+        width: 100%;
+        padding: 0 2vw;
+    }
+    
+    .featured-books ul li {
+        width: 100%;
+        max-width: 260px;
+        height: 20rem;
+        padding: 0.2rem;
+    }
+    
+    .featured-books .img-book {
+        height: 9rem;
+    }
+    
+    .featured-books .book-info {
+        padding: 0.4rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .book-info h2 {
+        font-size: 0.9em;
+        white-space: normal;
+        line-height: 1.1;
+        margin-bottom: 0.2rem;
+        text-align: center;
+    }
+    
+    .book-info p {
+        font-size: 0.7em;
+        line-height: 1.1;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 2.2em;
+        text-align: center;
+    }
+    
+    .book-r-p {
+        margin-top: auto;
+        text-align: center;
+    }
+    
+    .book-r-p h1 {
+        font-size: 1.1em;
+        margin-bottom: 0.2rem;
+    }
+    
+    .btn-books {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        margin-top: 0.2rem;
+    }
+    
+    .btn-books button {
+        width: 100%;
+        height: 2rem;
+        font-size: 0.75em;
+        padding: 0.2rem;
+        border-radius: 3px;
+    }
+    
+    .banner {
+        height: 12rem;
+    }
+    
+    .banner h2 {
+        font-size: 1.1em;
+    }
+    
+    .banner button {
+        font-size: 1em;
+        height: 2.2rem;
+    }
+}
+
+/* Landscape orientation for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .browse {
+        height: auto;
+        padding: 1rem;
+    }
+    
+    .browse-info h1 {
+        font-size: 2rem;
+    }
+    
+    .categories ul {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        justify-content: center;
+    }
+    
+    .categories li {
+        width: 100%;
+        max-width: 200px;
+        height: 6rem;
+    }
+    
+    .featured-books ul {
+        gap: 1rem;
+        margin: 0 8vw;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .featured-books ul li {
+        width: 100%;
+        max-width: 250px;
+        height: 20rem;
+    }
+}
+
+/* Extra adjustments for very small landscape phones */
+@media (max-width: 480px) and (orientation: landscape) {
+    .categories li {
+        width: 100%;
+        max-width: 150px;
+        height: 5rem;
+    }
+    
+    .featured-books ul {
+        margin: 0 5vw;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .featured-books ul li {
+        max-width: 180px;
+        height: 18rem;
+    }
+}/* End of Responsive Design */

@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | Herbert Schildt</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-box">
+        <img src="Group 10.png" alt="Herbert Schildt" class="brand-logo" />
+      </div>
+    </div>
+    <button type="button" class="burger" id="burger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="menu">
+      <button type="button" class="menu-item active" data-target="dashboard">Dashboard</button>
+      <button type="button" class="menu-item" data-target="books">Book Management</button>
+      <button type="button" class="menu-item" data-target="users">Manage Users</button>
+
+    </nav>
+    <div class="admin-profile">
+      <div class="avatar" aria-hidden="true"></div>
+      <div class="admin-name">Admin</div>
+      <a href="../login.html" class="logout">Log Out</a>
+    </div>
+  </aside>
+
+  <main class="content">
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="section visible">
+      <div class="title" style="display: flex; justify-content: space-between;">
+        <h1>Dashboard</h1>
+        <img src="../../img/settings.png" alt="" style="height: 3rem; cursor: pointer;" id="openBackupModal"
+          onclick="openSection()">
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-num" id="stat-total-books">0</div>
+          <div class="card-label">Total books listed</div>
+        </div>
+        <div class="card">
+          <div class="card-num" id="stat-pdf">0</div>
+          <div class="card-label">PDF BOOK</div>
+        </div>
+        <div class="card">
+          <div class="card-num" id="stat-physical">0</div>
+          <div class="card-label">Physical BOOK</div>
+        </div>
+        <div class="card">
+          <div class="card-num" id="stat-orders">0</div>
+          <div class="card-label">Order Summary</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOK MANAGEMENT -->
+    <section id="books" class="section">
+      <div class="section-head">
+        <h1>Book Management</h1>
+        <button type="button" class="primary" id="btn-open-add-book">
+          <span class="icon-book" aria-hidden="true"></span>
+          Add Book
+        </button>
+      </div>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Book Title</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Book Type</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody id="books-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- USERS -->
+    <section id="users" class="section">
+      <h1>Manage Users</h1>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Purchase Books</th>
+              <th>Date Joined</th>
+              <th>View</th>
+            </tr>
+          </thead>
+          <tbody id="users-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Add/Edit Book Modal -->
+  <div class="modal" id="book-modal" aria-hidden="true" role="dialog" aria-labelledby="book-modal-title">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="book-modal-title">Add New Books</h2>
+        <button type="button" class="icon-close" id="book-modal-close" aria-label="Close"></button>
+      </div>
+      <div class="modal-body add-book-grid">
+        <div class="book-image">
+          <div class="img-cover"></div>
+          <label class="secondary file-btn">
+            <input type="file" id="book-cover" accept="image/*" hidden />
+            Upload Image Book
+          </label>
+          <div class="field">
+            <label>Book Type</label>
+            <select id="book-type" onchange="toggleBookInput()">
+              <option value="PDF">PDF BOOK</option>
+              <option value="PHYSICAL">PHYSICAL BOOK</option>
+            </select>
+          </div>
+          <label class="secondary file-btn" id="bookpdf">
+            <input type="file" id="book-pdf" accept="application/pdf" hidden />
+            Upload PDF
+          </label>
+          <div id="pdf-file-name">
+          </div>
+          <div class="physical-link">
+            <input type="text" placeholder="Paste the website link" id="web-link">
+          </div>
+        </div>
+        <form id="book-form" class="book-form" autocomplete="off">
+          <div class="field">
+            <label>Title</label>
+            <input id="book-title" type="text" required />
+          </div>
+          <div class="field">
+            <label>Description</label>
+            <textarea id="book-description" rows="6"></textarea>
+          </div>
+          <div class="grid-3">
+            <div class="field">
+              <label>Price</label>
+              <input id="book-price" type="text" required oninput="formatPrice()" />
+            </div>
+            <div class="field">
+              <label>Category</label>
+              <select id="book-category" required>
+                <option value="">-- Select Category --</option>
+                <option value="java">Java</option>
+                <option value="cpp">C++</option>
+                <option value="c">C</option>
+                <option value="others">Others</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Rating</label>
+              <select name="rating" id="rating">
+                <option value="1.0">1.0</option>
+                <option value="1.3">1.3</option>
+                <option value="1.5">1.5</option>
+                <option value="2.0">2.0</option>
+                <option value="2.5">2.5</option>
+                <option value="3.0">3.0</option>
+                <option value="3.5">3.5</option>
+                <option value="4.0">4.0</option>
+                <option value="4.5">4.5</option>
+                <option value="5.0">5.0</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid-3">
+            <div class="field">
+              <label>Year</label>
+              <input id="book-year" type="number" min="1900" />
+              <small id="year-warning" style="color: red; display: none;">
+                Year must be no later than allowed (must be at least 14 years old).
+              </small>
+            </div>
+            <div class="field">
+              <label>Pages</label>
+              <input id="book-pages" type="number" min="1" />
+            </div>
+            <div class="field">
+              <label>ISBN</label>
+              <input id="book-isbn" type="text" maxlength="13"
+                title="Enter ISBN: numbers and - only (max 13 characters)" />
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="secondary" id="book-cancel">Go Back</button>
+            <button type="button" class="primary" id="book-submit">Add New Book</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Book Modal -->
+  <div class="edit-modal" id="edit-book-modal" aria-hidden="true" role="dialog" aria-labelledby="edit-book-modal-title">
+    <div class="edit-modal-card">
+      <div class="edit-modal-head">
+        <h2 id="edit-book-modal-title">Edit Book</h2>
+        <button type="button" class="edit-icon-close" id="edit-book-modal-close" aria-label="Close"></button>
+      </div>
+      <div class="edit-modal-body edit-book-grid">
+        <div class="edit-book-image">
+          <div class="edit-img-cover"></div>
+          <label class="secondary edit-file-btn">
+            <input type="file" id="edit-book-cover" accept="image/*" hidden />
+            Change Book Cover
+          </label>
+          <div class="edit-field">
+            <label>Book Type</label>
+            <select id="edit-book-type" onchange="toggleEditBookInput()">
+              <option value="PDF">PDF BOOK</option>
+              <option value="PHYSICAL">PHYSICAL BOOK</option>
+            </select>
+          </div>
+          <label class="secondary edit-file-btn" id="edit-bookpdf">
+            <input type="file" id="edit-book-pdf" accept="application/pdf" hidden />
+            Change PDF
+          </label>
+          <div id="edit-pdf-file-name"></div>
+          <div class="edit-physical-link">
+            <input type="text" placeholder="Paste the website link" id="edit-web-link">
+          </div>
+        </div>
+
+        <form id="edit-book-form" class="edit-book-form" autocomplete="off">
+          <div class="edit-field">
+            <label>Title</label>
+            <input id="edit-book-title" type="text" required />
+          </div>
+          <div class="edit-field">
+            <label>Description</label>
+            <textarea id="edit-book-description" rows="6"></textarea>
+          </div>
+
+          <div class="edit-grid-3">
+            <div class="edit-field">
+              <label>Price</label>
+              <input id="edit-book-price" type="text" required oninput="formatEditPrice()" />
+            </div>
+            <div class="edit-field">
+              <label>Category</label>
+              <select id="edit-book-category" required>
+                <option value="">-- Select Category --</option>
+                <option value="java">Java</option>
+                <option value="cpp">C++</option>
+                <option value="c">C</option>
+                <option value="others">Others</option>
+              </select>
+            </div>
+            <div class="edit-field">
+              <label>Rating</label>
+              <select name="edit-rating" id="edit-rating">
+                <option value="1.0">1.0</option>
+                <option value="1.3">1.3</option>
+                <option value="1.5">1.5</option>
+                <option value="2.0">2.0</option>
+                <option value="2.5">2.5</option>
+                <option value="3.0">3.0</option>
+                <option value="3.5">3.5</option>
+                <option value="4.0">4.0</option>
+                <option value="4.5">4.5</option>
+                <option value="5.0">5.0</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="edit-grid-3">
+            <div class="edit-field">
+              <label>Year</label>
+              <input id="edit-book-year" type="number" min="1900" />
+              <small id="edit-year-warning" style="color: red; display: none;">
+                Year must be no later than allowed (must be at least 14 years old).
+              </small>
+            </div>
+            <div class="edit-field">
+              <label>Pages</label>
+              <input id="edit-book-pages" type="number" min="1" />
+            </div>
+            <div class="edit-field">
+              <label>ISBN</label>
+              <input id="edit-book-isbn" type="text" maxlength="13"
+                title="Enter ISBN: numbers and - only (max 13 characters)" />
+            </div>
+          </div>
+
+          <div class="edit-modal-actions">
+            <button type="button" class="secondary" id="edit-book-cancel">Cancel</button>
+            <button type="button" class="primary" id="edit-book-submit">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Block User Modal -->
+  <div class="blck-user-modal blck-modal">
+    <div class="blck-modal-content">
+      <span class="blck-close-btn">&times;</span>
+      <h3 class="blck-modal-title">Block User</h3>
+      <label class="blck-modal-label">Number of days:</label>
+      <input type="number" class="blck-days" min="1" max="365" value="1">
+      <button type="button" class="blck-confirm-btn">Block User</button>
+    </div>
+  </div>
+
+  </div>
+
+
+
+  <!-- Modal -->
+
+  <div class="sts-section">
+    <h2 class="sts-title">Settings</h2>
+
+    <div class="sts-form-group">
+      <label class="sts-label" for="email">Email</label>
+      <input type="email" id="email" class="sts-input" placeholder="Enter your email">
+    </div>
+
+
+    <div class="sts-form-group">
+      <label class="sts-label" for="password">Password</label>
+      <input type="password" id="password" class="sts-input" placeholder="Enter your password">
+      <div class="sts-password-controls">
+        <div class="sts-show-password">
+          <input type="checkbox" id="showPassword">
+          <label for="showPassword">Show Password</label>
+        </div>
+        <button type="button" class="sts-edit-btn">✓ Edit</button>
+      </div>
+    </div>
+
+    <button type="button" class="sts-backup-btn" onclick="openBackupModal()">Backup All Database</button>
+    <button type="button" class="stsCancel" onclick="closeSection(event)">Cancel</button>
+  </div>
+
+  <div class="sts-modal" id="backupModal">
+    <div class="sts-modal-content">
+      <div class="sts-modal-header">
+        <h3 class="sts-modal-title">Database Backup</h3>
+        <p class="sts-modal-subtitle">Select which data you want to backup:</p>
+      </div>
+
+      <div class="sts-checkbox-group">
+        <div class="sts-checkbox-item">
+          <input type="checkbox" id="all" value="all">
+          <label for="all">All Databases</label>
+        </div>
+        <div class="sts-checkbox-item">
+          <input type="checkbox" id="sts-users" value="users">
+          <label for="sts-users">Users Database</label>
+        </div>
+        <div class="sts-checkbox-item">
+          <input type="checkbox" id="sts-books" value="books">
+          <label for="sts-books">Books Database</label>
+        </div>
+      </div>
+
+      <div class="sts-modal-actions">
+        <button type="button" class="sts-btn-cancel" onclick="closeBackupModal()">Cancel</button>
+        <button type="button" class="sts-btn-backup" onclick="performBackup()">Start Backup</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- User Details Modal -->
+  <div class="modal" id="user-modal" aria-hidden="true" role="dialog" aria-labelledby="user-modal-title">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="user-modal-title">User Information</h2>
+        <button type="button" class="icon-close" id="user-modal-close" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="user-info">
+          <div class="line"><span>Full Name:</span><b id="u-fullname"></b></div>
+          <div class="line"><span>Email:</span><b id="u-email"></b></div>
+          <div class="line"><span>Date Joined:</span><b id="u-joined"></b></div>
+          <h3>Purchase Book</h3>
+          <div id="u-books" class="chips"></div>
+        </div>
+        <div class="modal-actions gap">
+          <button type="button" class="secondary" id="user-block">Block Account</button>
+          <button type="button" class="danger" id="user-delete">Delete Account</button>
+          <button type="button" class="secondary" style="background-color: green; color: white;"
+            id="user-unblock">Unblock</button>
+        </div>
+      </div>
+
+      <div id="backupModal" class="backup-modal" style="display:none;">
+        <div class="backup-modal-content">
+          <h3>Backing up databases...</h3>
+          <p id="backupStatus">Please wait...</p>
+          <button id="cancelBackupBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <script src="admin.js"></script>
+    <script>
+      const coverInput = document.getElementById("book-cover");
+      const coverPreview = document.querySelector(".img-cover");
+      const pdfInput = document.getElementById("book-pdf");
+      const webLinkInput = document.getElementById("web-link");
+      const bookTypeSelect = document.getElementById("book-type");
+      const bookForm = document.getElementById("book-form");
+      const cancelBtn = document.getElementById("book-cancel");
+
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Example admin info (you can fetch this from backend or localStorage)
+        const adminData = {
+          email: "admin@example.com",
+          password: "123Admin"
+        };
+
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const showPasswordCheckbox = document.getElementById("showPassword");
+        const editBtn = document.querySelector(".sts-edit-btn");
+
+        // Initialize inputs
+        emailInput.value = adminData.email;
+        passwordInput.value = adminData.password;
+
+        // Disable inputs initially
+        emailInput.disabled = true;
+        passwordInput.disabled = true;
+
+        // Toggle password visibility
+        showPasswordCheckbox.addEventListener("change", () => {
+          passwordInput.type = showPasswordCheckbox.checked ? "text" : "password";
+        });
+
+        // Edit button logic
+        let isEditing = false;
+        editBtn.addEventListener("click", () => {
+          if (!isEditing) {
+            // Enable editing
+            emailInput.disabled = false;
+            passwordInput.disabled = false;
+            emailInput.focus();
+            editBtn.textContent = "💾 Save";
+            isEditing = true;
+          } else {
+            // Save new values (for now just log or save to localStorage)
+            const updatedEmail = emailInput.value.trim();
+            const updatedPassword = passwordInput.value.trim();
+
+            console.log("Updated admin info:", { updatedEmail, updatedPassword });
+
+            // You can save to localStorage or send to backend here:
+            // localStorage.setItem("admin_info", JSON.stringify({ email: updatedEmail, password: updatedPassword }));
+
+            // Disable editing again
+            emailInput.disabled = true;
+            passwordInput.disabled = true;
+            editBtn.textContent = "✓ Edit";
+            isEditing = false;
+          }
+        });
+      });
+
+
+
+
+      // Grab the form
+
+
+      function openSection() {
+        document.querySelector(".sts-section").style.display = "block";
+      }
+
+      function closeSection(event) {
+        const section = document.querySelector(".sts-section");
+
+        // If cancel button clicked, always close
+        if (event.target.classList.contains("stsCancel")) {
+          section.style.display = "none";
+          return;
+        }
+
+        // If click outside section, close
+        if (!section.contains(event.target) && event.target.id !== "openBackupModal") {
+          section.style.display = "none";
+        }
+      }
+
+      // Preview uploaded cover
+      coverInput.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            coverPreview.style.backgroundImage = `url(${e.target.result})`;
+            coverPreview.classList.add("has-image"); // remove ::before
+          };
+          reader.readAsDataURL(file);
+        } else {
+          coverPreview.style.backgroundImage = "";
+          coverPreview.classList.remove("has-image"); // show ::before again
+        }
+      });
+      // Reset PDF/WebLink when switching type
+      function toggleBookInput() {
+        if (bookTypeSelect.value === "PDF") {
+          pdfInput.value = "";
+          webLinkInput.value = "";
+          document.querySelector(".physical-link").style.display = "none";
+          document.getElementById("edit-web-link").style.display = "none";
+          document.getElementById("bookpdf").style.display = "block";
+        } else {
+          pdfInput.value = "";
+          webLinkInput.value = "";
+          document.querySelector(".physical-link").style.display = "block";
+          document.getElementById("bookpdf").style.display = "none";
+          document.getElementById("edit-bookpdf").style.display = "none";
+        }
+      }
+
+      // Submit form
+      document.getElementById("book-submit").addEventListener("click", async function () {
+        const formData = new FormData(bookForm);
+
+        // Required values
+        formData.append("title", document.getElementById("book-title").value);
+        formData.append("description", document.getElementById("book-description").value);
+        formData.append("price", document.getElementById("book-price").value);
+        formData.append("category", document.getElementById("book-category").value);
+        formData.append("rating", document.querySelector("[name='rating']")?.value || "");
+        formData.append("year", document.getElementById("book-year").value);
+        formData.append("pages", document.getElementById("book-pages").value);
+        formData.append("isbn", document.getElementById("book-isbn").value);
+
+        // Cover upload
+        if (coverInput.files.length > 0) {
+          formData.append("book_cover", coverInput.files[0]);
+        }
+
+        // Either PDF or web link
+        if (bookTypeSelect.value === "PDF") {
+          if (pdfInput.files.length > 0) {
+            formData.append("book_pdf", pdfInput.files[0]);
+          } else {
+            alert("Please upload a PDF book file.");
+            return;
+          }
+        } else {
+          const link = webLinkInput.value.trim();
+          if (!link.includes("amazon")) {   // ✅ removed Goodreads check since you don’t use it anymore
+            alert("Link must be from Amazon.");
+            return;
+          }
+          formData.append("web_link", link);
+        }
+
+        try {
+          const res = await fetch("http://127.0.0.1:5000/add-book", {
+            method: "POST",
+            body: formData,
+          });
+
+          const data = await res.json();
+
+          if (res.ok) {
+            alert(data.message);
+            bookForm.reset();
+            coverPreview.style.backgroundImage = "none";
+            // ✅ Refresh page after success
+            location.reload();
+          } else {
+            console.error("Failed to save book:", data);
+            alert("Failed to save book. Check console.");
+          }
+
+        } catch (err) {
+          console.error("⚠️ Request error:", err);
+          alert("An error occurred. Check console for details.");
+        }
+      });
+
+      // Cancel clears form
+      cancelBtn.addEventListener("click", function () {
+        bookForm.reset();
+        pdfInput.value = "";
+        webLinkInput.value = "";
+        coverPreview.style.backgroundImage = "none";
+      });
+      function formatPrice() {
+        const priceInput = document.getElementById("book-price");
+        let val = priceInput.value.replace(/[^0-9.]/g, ""); // keep only numbers and dot
+
+        if (val) {
+          const num = parseFloat(val);
+          if (!isNaN(num)) {
+            // If no $ yet, add it
+            if (!priceInput.value.startsWith("$")) {
+              priceInput.value = "$" + val;
+            }
+            // If no decimals, add .00
+            if (!priceInput.value.includes(".")) {
+              priceInput.value = priceInput.value + ".00";
+            }
+          }
+        }
+      }
+
+      const yearInput = document.getElementById("book-year");
+      const yearWarning = document.getElementById("year-warning");
+
+      const currentYear = new Date().getFullYear(); // current year
+
+      yearInput.addEventListener("input", function () {
+        const enteredYear = parseInt(this.value, 10);
+
+        if (enteredYear && enteredYear > currentYear) {
+          // show warning if the year is in the future
+          yearWarning.textContent = "Year cannot be in the future!";
+          yearWarning.style.display = "inline";
+          yearInput.value = ""; // clear input
+        } else {
+          // hide warning if the year is valid
+          yearWarning.style.display = "none";
+        }
+      });
+
+
+
+      document.getElementById("book-isbn").addEventListener("input", function () {
+        this.value = this.value.replace(/[^0-9-]/g, ""); // allow only numbers and -
+      });
+      function setupBookForm() {
+        const bookTypeSelect = document.getElementById("book-type");
+        const fileBtn = document.getElementById("bookpdf");
+        const pdfInput = document.getElementById("book-pdf");
+        const fileNameContainer = document.getElementById("pdf-file-name");
+        const physicalLink = document.querySelector(".physical-link");
+
+        function toggleBookInput() {
+          if (bookTypeSelect.value === "PDF") {
+            fileBtn.style.display = "";
+            physicalLink.style.display = "none";
+          } else {
+            fileBtn.style.display = "none";
+            physicalLink.style.display = "";
+            fileNameContainer.innerHTML = "";
+            pdfInput.value = "";
+          }
+        }
+
+        function showPdfName() {
+          fileNameContainer.innerHTML = "";
+
+          if (pdfInput.files.length > 0) {
+            const file = pdfInput.files[0];
+            const allowedExtensions = [".pdf", ".epub"];
+            const ext = file.name.substring(file.name.lastIndexOf(".")).toLowerCase();
+
+            if (!allowedExtensions.includes(ext)) {
+              alert("Only PDF and eBook (.epub) files are allowed.");
+              pdfInput.value = "";
+              return;
+            }
+
+            // Truncate to 9 letters + extension
+            const baseName = file.name.substring(0, file.name.lastIndexOf("."));
+            const shortName =
+              baseName.length > 9 ? baseName.substring(0, 13) + "…" : baseName;
+            const displayName = shortName + ext;
+
+            const wrapper = document.createElement("div");
+            wrapper.style.display = "flex";
+            wrapper.style.alignItems = "center";
+            wrapper.style.gap = "8px";
+
+            const h4 = document.createElement("h4");
+            h4.textContent = displayName;
+            h4.style.margin = "0";
+
+            const removeBtn = document.createElement("span");
+            removeBtn.textContent = "✖";
+            removeBtn.style.cursor = "pointer";
+            removeBtn.style.color = "red";
+            removeBtn.style.fontWeight = "bold";
+
+            removeBtn.addEventListener("click", () => {
+              pdfInput.value = "";
+              fileNameContainer.innerHTML = "";
+            });
+
+            wrapper.appendChild(h4);
+            wrapper.appendChild(removeBtn);
+            fileNameContainer.appendChild(wrapper);
+          }
+        }
+
+        bookTypeSelect.addEventListener("change", toggleBookInput);
+        pdfInput.addEventListener("change", showPdfName);
+
+        toggleBookInput();
+      }
+
+      setupBookForm();
+
+    </script>
+</body>
+
+</html>

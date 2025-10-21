@@ -1,0 +1,245 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/landing.css">
+    <script type="module" src="module/model-viewer.min.js"></script>
+    <title>Homepage</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="img/logo-white.svg" alt="" style="height: 60px; margin: 0.5rem 1rem;">
+            <!-- <img src="img/burger-menu.svg" alt="" style="height: 65px; margin: 0 3rem;"> -->
+        </div>
+
+        <div class="hero-section">
+            <div class="author-info">
+                <div class="name">
+                    <h1>Herbert Schildt</h1>
+                    <p>technical author</p>
+                </div>
+                <div class="p-info">
+                    <p class="typewriter" style="--typing-time:4s; --chars:120;">
+                        A renowned American programmer and author, he is widely recognized for writing beginner-friendly
+                        guides on languages like C, C++, and Java, helping millions learn coding through his clear and
+                        accessible style.
+                    </p>
+                </div>
+                <div class="btn-hero">
+                    <button onclick="location.href='browse-book.html'">Browse book</button>
+                    <button onclick="location.href='browse-book.html#categories'">View Categories</button>
+                </div>
+            </div>
+            <div class="author-photo">
+                <img src="img/herbert.svg" alt="">
+            </div>
+        </div>
+
+        <div class="hr-1" style="margin-top: 7rem; background-image: url(img/hr-1.svg); height: 7rem; opacity: 0;">
+        </div>
+
+        <div class="popular-works-section" style="opacity: 0;">
+            <div class="popular-info">
+                <div class="popular-h">
+                    <h2>Popular Works</h2>
+                </div>
+                <div class="popular-p">
+                    <p>His works are trusted worldwide for simplifying complex programming concepts, offering clear
+                        explanations and practical guidance in languages like C, C++, Java, and C#.</p>
+                </div>
+            </div>
+            <div class="book-list">
+                <div class="books">
+                    <div class="book left"></div>
+                    <div class="book center"></div>
+                    <div class="book right"></div>
+                </div>
+                <div class="s-arrow">
+                    <img src="img/small-arrow.svg" alt="">
+                    <img src="img/big-arrow.svg" alt="">
+                </div>
+                <img src="img/arrow-seemore.svg" alt="" class="seemore"
+                    onclick="location.href='browse-book.html#featured-books'">
+                <h3>See more books</h3>
+            </div>
+        </div>
+
+        <div class="hr-2 "
+            style="margin-top: 2rem; background-image: url(img/hr-2.svg); opacity: 0; height: 15rem; background-repeat: no-repeat; background-size: cover;">
+        </div>
+
+        <div class="best-selling-section" style="opacity: 0;">
+            <h1>“Top 1 Most Selling Book of Herbert Schildt</h1>
+            <div class="book-info">
+                <div class="best-book">
+                    <!-- replace src with your actual .glb file path -->
+                    <model-viewer src="img/Java Complete.glb" alt="3D book model" camera-controls /* allow rotate/zoom
+                        with cursor & touch */ interaction-prompt="auto" auto-rotate /* optional: slowly rotate when
+                        idle */ ar /* optional: enable AR on supported devices */ shadow-intensity="1" exposure="1"
+                        style="background: transparent;">
+                        <!-- fallback content -->
+                        <button slot="poster" class="mv-btn">Load 3D</button>
+                    </model-viewer>
+                </div>
+                <div class="info-best-book">
+                    <p>"One of the most successful programming guides of all time, this comprehensive reference has
+                        become a staple for learners and professionals around the world. With millions of copies sold
+                        across multiple editions and translations, it remains one of the highest-rated resources in its
+                        field, consistently praised for its clarity, depth, and practical examples. Readers frequently
+                        highlight its detailed coverage and ease of use, making it a trusted companion for both students
+                        and experienced developers.</p>
+                    <div class="btn-best-book">
+                        <button style="cursor: pointer;"  onclick="location.href='browse-book.html#featured-books'"><img src="img/arrow-right.svg" alt="">Get Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hr-3"
+            style="margin-top: 5rem; background-image: url(img/hr-3.svg); height: 3rem; background-repeat: no-repeat; background-size: cover; position: relative; z-index: 10; opacity: 0;">
+        </div>
+
+        <div class="reader-ratings" style="opacity: 0;">
+            <div class="r-headers">
+                <h2>“Reader Ratings</h2>
+            </div>
+            <div class="card-comment">
+                <div class="rating-card">
+                    <img src="img/star.svg" alt="">
+                    <div class="review">
+                        <p>“His writing makes even the toughest programming
+                            topics simple and approachable.”</p>
+                    </div>
+                    <h4>-Michael R., Software Engineer</h4>
+                </div>
+                <div class="rating-card">
+                    <img src="img/star.svg" alt="">
+                    <div class="review">
+                        <p>“Herbert Schildt’s books make programming feel simple and enjoyable.”</p>
+                    </div>
+                    <h4>– Anna M., Computer Science Student</h4>
+                </div>
+                <div class="rating-card">
+                    <img src="img/star.svg" alt="">
+                    <div class="review">
+                        <p>“His writing gave me confidence to keep learning programming.”</p>
+                    </div>
+                    <h4>– John K., IT Instructor</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-content">
+                <!-- Left section -->
+                <div class="footer-left">
+                    <h3>Herbert Schildt</h3>
+                    <p>Your trusted source for programming knowledge and IT learning resources.</p>
+
+                    <div class="social-icons">
+                        <a href="#"><img src="img/amazon.svg" alt="Amazon"></a>
+                        <a href="#"><img src="img/goodreads.svg" alt="Goodreads"></a>
+                    </div>
+                </div>
+
+                <!-- Right section -->
+                <div class="footer-right">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><span>📧</span> <a href="mailto:Herb@herbschildt.com">Herb@herbschildt.com</a></li>
+                        <li><span>📞</span> +1 (555) 123-4567</li>
+                        <li><span>📍</span> McGraw-Hill Education</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr>
+            <div class="footer-bottom">
+                <p>© 2024 Herbert Schildt. All rights reserved.</p>
+            </div>
+        </div>
+
+
+    </div>
+    <script>
+        window.addEventListener("scroll", () => {
+            console.log("Scroll position:", window.scrollY);
+        });
+        const books = document.querySelectorAll('.book');
+        const positions = ['left', 'center', 'right'];
+        let index = 0;
+
+        // Assign images to each book
+        const images = [
+            "img/books/Java Complete.jpg",
+            "img/books/c++ complete.jpg",
+            "img/books/C,_The_Complete_Reference.jpg"
+        ];
+
+        books.forEach((book, i) => {
+            book.style.backgroundImage = `url('${images[i]}')`;
+        });
+
+        function rotateBooks() {
+            books.forEach(book => book.classList.remove('left', 'center', 'right'));
+
+            books.forEach((book, i) => {
+                book.classList.add(positions[(i + index) % 3]);
+            });
+
+            index = (index + 1) % 3;
+        }
+
+        setInterval(rotateBooks, 2000);
+
+
+        function handleScrollAnimation(selector) {
+            const el = document.querySelector(selector);
+            if (!el) return;
+
+            const rect = el.getBoundingClientRect();
+            const triggerPoint = window.innerHeight * 0.8;
+
+            if (rect.top < triggerPoint) {
+                el.classList.add("fadeIn");
+            }
+        }
+
+        window.addEventListener("scroll", () => {
+            handleScrollAnimation(".hr-1");
+            handleScrollAnimation(".popular-works-section");
+            handleScrollAnimation(".hr-2");
+            handleScrollAnimation(".best-selling-section");
+            handleScrollAnimation(".hr-3");
+            handleScrollAnimation(".reader-ratings");
+        });
+
+
+
+    </script>
+
+    <script>
+        // Header scroll behavior
+        let lastScrollTop = 0;
+        const header = document.querySelector('.header');
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scrolling down - hide header
+                header.classList.add('hidden');
+            } else {
+                // Scrolling up - show header
+                header.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,938 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter Regular' !important;
+}
+
+:root {
+    --primary-color-font: #605858;
+    --border-color: #000;
+    --button-primary: #695959;
+    --button-secondary: #9F6767;
+    --background-beige: #F5F3F0;
+    --white: #FFFFFF;
+    --dark-brown: #3A3333;
+    --light-gray: #E6D5D5;
+}
+
+
+
+
+/* Font Faces */
+@font-face {
+    font-family: 'Inter SemiBold';
+    src: url(../font/Inter/static/Inter_18pt-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: 'Inter Black';
+    src: url(../font/Inter/static/Inter_18pt-Black.ttf);
+}
+
+@font-face {
+    font-family: 'Inter Regular';
+    src: url(../../font/Inter/static/Inter_18pt-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Inter Medium';
+    src: url(../font/Inter/static/Inter_28pt-Medium.ttf);
+}
+
+@font-face {
+    font-family: 'Encode Sans';
+    src: url(../font/Encode_Sans/EncodeSans-VariableFont_wdth\,wght.ttf);
+}
+
+@font-face {
+    font-family: 'Inter Light';
+    src: url(../font/Inter/static/Inter_18pt-Light.ttf);
+}
+
+/* Body and Container */
+body {
+
+    background-color: var(--background-beige);
+    color: var(--dark-brown);
+    line-height: 1.6;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+.header {
+    background-color: #825E5E;
+    padding: 0.5rem 2rem;
+    color: white !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.header a {
+    color: white;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.author-name h1 {
+    font-family: 'Inter Black';
+    font-size: 3rem;
+    color: var(--dark-brown);
+    margin: 0;
+}
+
+.author-name p {
+    font-family: 'Inter Medium';
+    font-size: 1.2rem;
+    color: var(--dark-brown);
+    margin: 0;
+    margin-top: -0.5rem;
+}
+
+.vertical-line {
+    width: 2px;
+    height: 4rem;
+    background-color: var(--dark-brown);
+}
+
+.last-name {
+    font-family: 'Inter Black';
+    font-size: 3rem;
+    color: var(--dark-brown);
+    margin: 0;
+}
+
+.header-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--dark-brown);
+    font-family: 'Inter Medium';
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    border-color: var(--button-primary);
+    background-color: rgba(105, 89, 89, 0.1);
+}
+
+.nav-link.active {
+    background-color: var(--button-primary);
+    color: white;
+    border-color: var(--button-primary);
+}
+
+
+
+
+
+.main-content {
+    flex: 1;
+    padding: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.content-wrapper {
+    background-color: var(--white);
+    border-radius: 15px 15px 0 0;
+    border: 1px solid var(--border-color);
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    min-height: 600px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+.sidebar {
+    width: 300px;
+    padding: 2rem;
+    border-right: 1px solid #E0E0E0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.author-photo {
+    margin-bottom: 2rem;
+}
+
+.author-photo img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+}
+
+.personal-info h2 {
+    font-family: 'Inter Black';
+    font-size: 1.5rem;
+    color: var(--dark-brown);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.info-list {
+    list-style: none;
+    font-family: 'Encode Sans';
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.info-list li {
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #F0F0F0;
+}
+
+.info-list strong {
+    color: var(--button-primary);
+    font-weight: 600;
+}
+
+
+
+
+.main-section {
+    flex: 1;
+    padding: 2rem;
+}
+
+
+
+.tabs {
+    display: flex;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.tab {
+    background: none;
+    border: none;
+    padding: 1rem 2rem;
+    font-family: 'Inter Medium';
+    font-size: 1rem;
+    color: var(--primary-color-font);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.tab:hover {
+    background-color: #F8F8F8;
+}
+
+.tab.active {
+    background-color: #F0F0F0;
+    color: var(--dark-brown);
+    border-bottom-color: var(--button-primary);
+}
+
+
+.tab-content {
+    min-height: 400px;
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.section-title {
+    font-family: 'Inter Black';
+    font-size: 2rem;
+    color: var(--dark-brown);
+    margin-bottom: 2rem;
+}
+
+
+.biography-content {
+    font-family: 'Encode Sans';
+    line-height: 1.8;
+}
+
+.intro-text {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: var(--dark-brown);
+}
+
+.biography-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.biography-list li {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #FAFAFA;
+    border-left: 4px solid var(--button-primary);
+    border-radius: 0 5px 5px 0;
+}
+
+.biography-list strong {
+    color: var(--button-primary);
+    font-weight: 600;
+}
+
+
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.book-card {
+    background-color: var(--white);
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.book-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.book-card h3 {
+    font-family: 'Inter SemiBold';
+    font-size: 1.1rem;
+    color: var(--dark-brown);
+    margin-bottom: 0.5rem;
+}
+
+.book-card p {
+    font-family: 'Encode Sans';
+    font-size: 0.9rem;
+    color: var(--primary-color-font);
+    line-height: 1.5;
+}
+
+
+
+
+.footer {
+    background-color: #2c2525;
+    color: #f2f2f2;
+    padding: 3rem 5% 2rem;
+    font-family: Arial, sans-serif;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.footer-left {
+    max-width: 40%;
+    font-family: 'Inter SemiBold';
+    font-size: 1.5rem;
+}
+
+.footer-left h3 {
+    margin-bottom: 0.5rem;
+    color: #f2f2f2;
+}
+
+.footer-left p {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    color: #cfcfcf;
+    width: 75%;
+    font-family: 'Inter Medium';
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icons a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: scale(1.1);
+}
+
+.social-icons img {
+    width: 20px;
+    height: 20px;
+}
+
+.footer-right {
+    margin-right: 2rem;
+}
+
+.footer-right ul {
+    list-style: none;
+}
+
+.footer-right li {
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-right h3 {
+    margin-bottom: 0.8rem;
+    font-size: 1.8rem;
+    color: #f2f2f2;
+}
+
+.footer-right a {
+    color: #f2f2f2;
+    text-decoration: underline;
+    font-family: 'Inter Regular';
+}
+
+.footer hr {
+    border: 0;
+    border-top: 1px solid #8b8b8b;
+    margin: 2rem 0 1rem;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 1rem;
+    color: #ddd;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Large screens (desktops) - Scalable approach */
+@media (min-width: 1200px) {
+    .content-wrapper {
+        padding: 0 2vw;
+    }
+    
+    .main-content {
+        padding: 2rem 0;
+    }
+    
+    .header {
+        padding: 0 2vw;
+    }
+}
+
+/* Desktop and larger screens - Scalable approach */
+@media (min-width: 1025px) and (max-width: 1199px) {
+    .content-wrapper {
+        padding: 0 1.5vw;
+    }
+    
+    .header {
+        padding: 0 1.5vw;
+    }
+}
+
+/* Medium screens (tablets) */
+@media (max-width: 1024px) {
+    .main-content {
+        padding: 2rem 3vw;
+    }
+    
+    .content-wrapper {
+        max-width: 100%;
+    }
+    
+    .sidebar {
+        width: 280px;
+        padding: 1.5rem;
+    }
+    
+    .author-photo img {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .personal-info h2 {
+        font-size: 1.3rem;
+    }
+    
+    .info-list {
+        font-size: 0.85rem;
+    }
+    
+    .main-section {
+        padding: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .tab {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .books-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .book-card {
+        padding: 1.2rem;
+    }
+    
+    .book-card img {
+        height: 180px;
+    }
+    
+    .footer {
+        padding: 2rem 3% 1.5rem;
+    }
+}
+
+/* Small screens (mobile phones) */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .header-left {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .header-left img {
+        height: 50px;
+        margin: 0.3rem 0;
+    }
+
+    .header-nav {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-link {
+        font-size: 1rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .vertical-line {
+        width: 4rem;
+        height: 2px;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+    
+    .content-wrapper {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #E0E0E0;
+        padding: 1.5rem;
+    }
+    
+    .author-photo {
+        margin-bottom: 1.5rem;
+    }
+    
+    .author-photo img {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .personal-info h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .info-list {
+        font-size: 0.8rem;
+        line-height: 1.6;
+    }
+    
+    .info-list li {
+        margin-bottom: 0.8rem;
+        padding: 0.4rem 0;
+    }
+
+    .main-section {
+        padding: 1.5rem;
+    }
+    
+    .tabs {
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .tab {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+        flex: 1;
+        min-width: 120px;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .intro-text {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .biography-list li {
+        margin-bottom: 1rem;
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .books-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+    
+    .book-card {
+        padding: 1rem;
+    }
+    
+    .book-card img {
+        height: 160px;
+    }
+    
+    .book-card h3 {
+        font-size: 1rem;
+    }
+    
+    .book-card p {
+        font-size: 0.8rem;
+    }
+
+    .footer {
+        padding: 2rem 1rem 1.5rem;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .footer-left,
+    .footer-right {
+        max-width: 100%;
+    }
+    
+    .footer-left {
+        font-size: 1.3rem;
+    }
+    
+    .footer-left p {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+    
+    .footer-right h3 {
+        font-size: 1.6rem;
+    }
+    
+    .footer-right li {
+        font-size: 0.9rem;
+        justify-content: center;
+    }
+    
+    .footer-bottom {
+        font-size: 0.9rem;
+    }
+}
+
+/* Extra small screens (very small phones) */
+@media (max-width: 480px) {
+    .header {
+        padding: 0.8rem 5vw;
+    }
+    
+    .header-left img {
+        height: 45px;
+    }
+    
+    .header-nav {
+        gap: 0.5rem;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    .author-name h1,
+    .last-name {
+        font-size: 2rem;
+    }
+
+    .main-content {
+        padding: 0.8rem;
+    }
+    
+    .sidebar {
+        padding: 1rem;
+    }
+    
+    .author-photo img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .personal-info h2 {
+        font-size: 1.1rem;
+    }
+    
+    .info-list {
+        font-size: 0.75rem;
+    }
+    
+    .info-list li {
+        margin-bottom: 0.6rem;
+        padding: 0.3rem 0;
+    }
+
+    .main-section {
+        padding: 1rem;
+    }
+    
+    .tabs {
+        margin-bottom: 1rem;
+    }
+    
+    .tab {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+    
+    .intro-text {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    
+    .biography-list li {
+        margin-bottom: 0.8rem;
+        padding: 0.6rem;
+        font-size: 0.8rem;
+    }
+
+    .books-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+    
+    .book-card {
+        padding: 0.8rem;
+    }
+    
+    .book-card img {
+        height: 140px;
+    }
+    
+    .book-card h3 {
+        font-size: 0.9rem;
+    }
+    
+    .book-card p {
+        font-size: 0.75rem;
+    }
+    
+    .footer {
+        padding: 1.5rem 0.8rem 1rem;
+    }
+    
+    .footer-left {
+        font-size: 1.2rem;
+    }
+    
+    .footer-left p {
+        font-size: 0.85rem;
+    }
+    
+    .footer-right h3 {
+        font-size: 1.4rem;
+    }
+    
+    .footer-right li {
+        font-size: 0.85rem;
+    }
+    
+    .footer-bottom {
+        font-size: 0.8rem;
+    }
+}
+
+/* Landscape orientation for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .header {
+        flex-direction: row;
+        padding: 0.8rem 1rem;
+    }
+    
+    .header-left {
+        flex-direction: row;
+        text-align: left;
+    }
+    
+    .header-nav {
+        gap: 0.8rem;
+        margin-left: auto;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.6rem;
+    }
+    
+    .main-content {
+        padding: 0.8rem;
+    }
+    
+    .content-wrapper {
+        flex-direction: row;
+    }
+    
+    .sidebar {
+        width: 250px;
+        border-right: 1px solid #E0E0E0;
+        border-bottom: none;
+        padding: 1rem;
+    }
+    
+    .author-photo img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .personal-info h2 {
+        font-size: 1.1rem;
+    }
+    
+    .info-list {
+        font-size: 0.75rem;
+    }
+    
+    .main-section {
+        padding: 1rem;
+    }
+    
+    .tabs {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .tab {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+        text-align: left;
+    }
+    
+    .section-title {
+        font-size: 1.4rem;
+    }
+    
+    .books-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 0.8rem;
+    }
+    
+    .book-card {
+        padding: 0.8rem;
+    }
+    
+    .book-card img {
+        height: 120px;
+    }
+    
+    .book-card h3 {
+        font-size: 0.9rem;
+    }
+    
+    .book-card p {
+        font-size: 0.75rem;
+    }
+}

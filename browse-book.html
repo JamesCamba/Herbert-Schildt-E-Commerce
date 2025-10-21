@@ -1,0 +1,952 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/browse-book.css">
+    <link rel="stylesheet" href="style/nav.css">
+    <link rel="stylesheet" href="style/modal/modal.css">
+    <title>Browse Books</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="header">
+            <div class="logo">
+                <img src="img/logo-white.svg" alt="">
+            </div>
+            <div class="nav">
+                <ul>
+                    <li><a href="index.html"
+                            onclick="event.preventDefault(); loader(2, () => { window.location.href=this.href; });">Home</a>
+                    </li>
+                    <li><a href="pages/About/about.html"
+                            onclick="event.preventDefault(); loader(2, () => { window.location.href=this.href; });">About</a>
+                    </li>
+                    <li onclick="toggleCart()"><img src="img/cart.svg" alt="" style="height: 44px;"></li>
+                    <li><a href="#"><img src="img/user-logo.svg" alt="" style="height: 44px;"
+                                id="userLink"></a></li>
+                </ul>
+                <div class="login-container">
+                    <div class="login-username">Vincent James Manalastas</div>
+                    <button class="login-button" id="logOut">Log Out</button>
+                </div>
+            </div>
+        </div>
+        <div class="browse">
+            <div class="browse-info">
+                <h1>Browse All Books</h1>
+                <p>Discover our complete collection of C, C++, and Java programming books by Herbert Schildt</p>
+            </div>
+            <div class="browse-container-search" style="display: none;">
+                <div class="browse-search">
+                    <input type="text" placeholder="Search Books" id="search">
+                    <button><img src="img/search.svg" alt=""></button>
+                </div>
+                <ul class="search-result">
+                    <!-- <li>
+                        <img src="https://via.placeholder.com/50" alt="Result Image">
+                        <a href="#">Search Result Item 1</a>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+
+        <div class="line-1">
+            <img src="img/b-hr-1.svg" alt="" style="width: 100%;">
+        </div>
+
+
+        <div class="categories" id="categories">
+            <div class="c-head">
+                <h1>Programming Languages by Herbert Schildt</h1>
+            </div>
+            <ul>
+                <li style="padding-top: 4rem; padding-bottom: 4rem;">
+                    <img src="img/code-icon.svg" alt="">
+                    <h3 id="c-title" style="text-align: center;">C<br> <!--Programming--></h3>
+                    <p>The Complete C Reference</p>
+                </li>
+                <li style="padding-top: 4rem; padding-bottom: 4rem;">
+                    <img src="img/code-icon.svg" alt="">
+                    <h3 id="c-title">C++</h3>
+                    <p>C++ Programming Guide</p>
+                </li>
+                <li style="padding-top: 4rem; padding-bottom: 4rem;">
+                    <img src="img/java-icon.svg" alt="">
+                    <h3 id="c-title">Java</h3>
+                    <p>Complete Java Reference</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="featured-books" id="featured-books">
+            <h1>Featured Books</h1>
+            <ul class="books-card" id="booksList">
+                <!-- <li>
+                    <div class="img-book">
+                        <button>View Quick</button>
+                    </div>
+                    <div class="book-info">
+                        <h2>Java: The Complete Reference</h2>
+                        <p>The definitive guide to Java programming, covering Java 17 and all its features. </p>
+                        <div class="book-r-p">
+                            <p>★★★★☆4.8</p>
+                            <h1>$59.99</h1>
+                        </div>
+                        <div class="btn-books">
+                            <button><img src="img/preview-ico.svg" alt=""> Preview</button>
+                            <button id="addToCart"><img src="img/cart.svg" alt="" style="height: 1.9em; margin-bottom: 0.3rem;"> Add to
+                                Cart</button>
+                        </div>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+
+        <div class="banner-post">
+            <div class="banner" id="NoAcc">
+                <h2>Dont have an account yet? Get registered and begin your journey.</h2>
+                <button onclick="event.preventDefault(); loader(2, () => { location.href='pages/login.html'; });">Click
+                    Here</button>
+            </div>
+        </div>
+
+
+        <div class="loading-Overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+        </div>
+
+
+
+        <div class="footer">
+            <div class="footer-content">
+                <!-- Left section -->
+                <div class="footer-left">
+                    <h3>Herbert Schildt</h3>
+                    <p>Your trusted source for programming knowledge and IT learning resources.</p>
+
+                    <div class="social-icons">
+                        <a href="#"><img src="img/amazon.svg" alt="Amazon"></a>
+                        <a href="#"><img src="img/goodreads.svg" alt="Goodreads"></a>
+                    </div>
+                </div>
+
+                <!-- Right section -->
+                <div class="footer-right">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><span>📧</span> <a href="mailto:Herb@herbschildt.com">Herb@herbschildt.com</a></li>
+                        <li><span>📞</span> +1 (555) 123-4567</li>
+                        <li><span>📍</span> McGraw-Hill Education</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cart-notification" id="cartNotification"></div>
+            <div class="modal-overlay">
+                <div class="modal">
+                    <div class="modal-content">
+
+                        <!-- Book Cover -->
+                        <div class="book-image">
+                            <img src="img/books/Java Complete.jpg" alt="Java: The Complete Reference">
+                        </div>
+
+                        <!-- Book Info -->
+                        <div class="book-details">
+                            <h2>Java: The Complete Reference</h2>
+                            <p class="price">$54.99</p>
+                            <p class="rating">⭐ ⭐ ⭐ ⭐ ⭐ 4.7/5</p>
+
+                            <p class="description">
+                                Comprehensive coverage of C++ programming language, including modern
+                                C++ features, templates, and STL.
+                            </p>
+
+                            <div class="meta">
+                                <p><strong>Year:</strong> 2021</p>
+                                <p><strong>Pages:</strong> 1248</p>
+                                <p><strong>ISBN:</strong> 978-1260454468</p>
+                                <p><strong>Category:</strong> JAVA</p>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="actions">
+                                <button class="preview ">👁 Preview</button>
+                                <button class="add-cart">🛒 Add to cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <hr>
+            <div class="footer-bottom">
+                <p>© 2025 Herbert Schildt. All rights reserved.</p>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="cart-sidebar" id="cartSidebar">
+            <div class="cart-header">
+                Book Cart
+                <img src="img/close.svg" alt="" style="height: 20px;" onclick="toggleCart()">
+            </div>
+            <!-- 
+            <div class="cart-items">
+                <div class="cart-item">
+                    <img src="https://via.placeholder.com/70x100" alt="Book">
+                    <div class="cart-item-info">
+                        <h4>Java: The Complete Reference</h4>
+                        <p>$54.99</p>
+                        <button class="remove-btn">Remove</button>
+                    </div>
+                </div>
+
+                <div class="cart-item">
+                    <img src="https://via.placeholder.com/70x100" alt="Book">
+                    <div class="cart-item-info">
+                        <h4>Java: The Complete Reference</h4>
+                        <p>$54.99</p>
+                        <button class="remove-btn">Remove</button>
+                    </div>
+                </div>
+            </div> -->
+
+
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total</span>
+                    <span>$00.0</span>
+                </div>
+                <button class="checkout-btn" onclick="checkCart()">Checkout</button>
+            </div>
+        </div>
+
+        <script>
+            // Clear old cart
+            // localStorage.removeItem('currentUser');
+
+            const currentUser = localStorage.getItem('currentUser');
+            console.log('Current User:', currentUser);
+
+            // Select modal buttons
+            const modalPreviewBtn = document.querySelector(".modal .preview");
+            const modalAddCartBtn = document.querySelector(".modal .add-cart");
+
+
+
+
+
+
+
+            async function checkCart() {
+                // Get the currently logged-in user from localStorage
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (!currentUser || !currentUser.email) {
+                    alert('No user is logged in!');
+                    return;
+                }
+
+                try {
+                    // Request cart from backend
+                    const response = await fetch("http://127.0.0.1:5000/get-cart", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email: currentUser.email })
+                    });
+
+                    const result = await response.json();
+
+                    if (!result.success) {
+                        alert(result.message || 'Failed to fetch cart.');
+                        return;
+                    }
+
+                    // Check if cart is empty
+                    const cart = result.cart || [];
+                    if (cart.length === 0) {
+                        alert('Your cart is empty. You cannot proceed to checkout.');
+                        return;
+                    }
+
+                    // Proceed to cart page
+                    location.href = 'cart.html';
+
+                } catch (error) {
+                    console.error("Error checking cart:", error);
+                    alert('Unable to check cart at the moment. Please try again later.');
+                }
+            }
+
+            // Attach events
+            modalPreviewBtn.addEventListener("click", () => {
+                const bookTitle = document.querySelector(".modal .book-details h2").innerText;
+                savePreviewedBookByTitle(bookTitle);
+            });
+
+            modalAddCartBtn.addEventListener("click", () => {
+                const bookTitle = document.querySelector(".modal .book-details h2").innerText;
+                const priceText = document.querySelector(".modal .book-details .price").innerText;
+                const price = parseFloat(priceText.replace("$", ""));
+                const image = document.querySelector(".modal .book-image img").src;
+
+                addToCartByDetails({ title: bookTitle, price, image });
+            });
+
+
+
+
+            function displayLoggedInUserFromStorage() {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                const usernameEl = document.querySelector('.login-username');
+                const bannerPost = document.querySelector('.banner-post');
+
+                if (!usernameEl) return;
+
+                if (currentUser && currentUser.email) {
+                    // ✅ Just display the email since no users array exists
+                    usernameEl.textContent = currentUser.email;
+                    usernameEl.style.display = 'flex';
+                    usernameEl.style.justifyContent = 'center';
+                    // Hide banner if user is logged in
+                    if (bannerPost) bannerPost.style.display = 'none';
+                } else {
+                    // Not logged in
+                    usernameEl.textContent = '';
+                    usernameEl.style.display = 'none';
+
+                    if (bannerPost) bannerPost.style.display = 'block';
+                }
+            }
+
+            // Call on page load
+            document.addEventListener('DOMContentLoaded', function () {
+                displayLoggedInUserFromStorage();
+                hideBannerIfLoggedIn();
+                setupLogout();
+                handleUserIconClick();
+                renderCart()
+            });
+
+
+            // Call on page load
+
+
+
+            function hideBannerIfLoggedIn() {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                const banner = document.querySelector('.banner-post');
+
+                if (!banner) return; // make sure the element exists
+
+                if (currentUser) {
+                    banner.style.display = 'none'; // hide if logged in
+                } else {
+                    banner.style.removeProperty('display'); // restore original CSS
+                }
+            }
+            // Call it when the DOM is ready
+
+
+            function setupLogout() {
+                const logOutBtn = document.getElementById('logOut');
+                if (!logOutBtn) return;
+
+                logOutBtn.addEventListener('click', () => {
+                    // Remove current user from localStorage
+                    localStorage.removeItem('currentUser');
+                    console.log('Current user has been logged out.');
+
+                    // Hide login container if visible
+                    const loginContainer = document.querySelector('.login-container');
+                    if (loginContainer) {
+                        loginContainer.style.display = 'none';
+                    }
+
+                    // Redirect to login page
+                    window.location.href = 'pages/login.html';
+                });
+            }
+
+
+            // Call the setup function on DOMContentLoaded
+
+
+            function handleUserIconClick() {
+                const userLink = document.getElementById("userLink");
+                const loginContainer = document.querySelector('.login-container');
+                const loginUsername = document.querySelector('.login-username');
+
+                console.log("handleUserIconClick called"); // ✅ check if function runs
+
+                if (!userLink || !loginContainer || !loginUsername) {
+                    console.warn("One of the elements not found:", { userLink, loginContainer, loginUsername });
+                    return;
+                }
+
+                // Show login container if user is logged in
+                userLink.addEventListener('click', async function (e) {
+                    console.log("userLink clicked"); // ✅ check if click fires
+                    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                    console.log("currentUser:", currentUser); // ✅ show currentUser
+
+                    if (currentUser && currentUser.email) {
+                        e.preventDefault();
+                        console.log("User logged in, prevented default");
+
+                        // Delay showing the container
+
+                        console.log("Inside setTimeout"); // ✅ check if timeout runs
+                        loginContainer.style.display = 'block';
+
+                        // If fullName not saved, fetch it
+                        if (!currentUser.fullName) {
+                            console.log("FullName not in localStorage, fetching from backend");
+                            try {
+                                const response = await fetch("http://127.0.0.1:5000/get-fullname", {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({ email: currentUser.email })
+                                });
+                                const data = await response.json();
+                                console.log("Fullname fetch result:", data);
+
+                                if (data.success) {
+                                    currentUser.fullName = data.fullName;
+                                    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+                                    loginUsername.textContent = currentUser.fullName;
+                                } else {
+                                    loginUsername.textContent = currentUser.email; // fallback
+                                }
+                            } catch (err) {
+                                console.error("Error fetching full name:", err);
+                                loginUsername.textContent = currentUser.email; // fallback
+                            }
+                        } else {
+                            console.log("FullName found in localStorage");
+                            loginUsername.textContent = currentUser.fullName || currentUser.email;
+                        }
+                    } else {
+                        window.location.href = 'pages/login.html';
+                        console.log("No currentUser or email, skipping container display");
+                    }
+                });
+
+                // Hide login container if click outside
+                document.addEventListener('click', function (e) {
+                    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                    if (!currentUser) return; // only if user is logged in
+                    if (!loginContainer.contains(e.target) && !userLink.contains(e.target)) {
+                        console.log("Click outside, hiding login container");
+                        loginContainer.style.display = 'none';
+                    }
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", handleUserIconClick);
+
+
+            // Call the function on DOM ready
+
+
+
+            const categoryMap = {
+                "c programming": "c",
+                "c++": "cpp",
+                "java": "java"
+            };
+
+            const categoryItems = document.querySelectorAll(".categories ul li");
+
+            categoryItems.forEach(cat => {
+                cat.addEventListener("click", () => {
+                    const catText = cat.querySelector("h3").innerText.toLowerCase(); // e.g. "c programming"
+                    const category = categoryMap[catText];
+                    if (category) {
+                        sortBooks(category);
+
+                        // Smooth scroll to featured-books
+                        document.getElementById("featured-books").scrollIntoView({
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            function sortBooks(category) {
+                const booksList = document.getElementById("booksList");
+                const books = Array.from(booksList.querySelectorAll("li"));
+
+                books.sort((a, b) => {
+                    const aCat = a.getAttribute("data-category");
+                    const bCat = b.getAttribute("data-category");
+
+                    if (aCat === category && bCat !== category) return -1;
+                    if (aCat !== category && bCat === category) return 1;
+                    return 0;
+                });
+
+                books.forEach(book => booksList.appendChild(book));
+            }
+
+
+            function toggleCart() {
+                document.getElementById('cartSidebar').classList.toggle('open');
+            }
+
+            async function checkAndHideViewButtons() {
+                const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+                if (!currentUser || !currentUser.email) return;
+
+                try {
+                    // Get user's paid books
+                    const response = await fetch("http://127.0.0.1:5000/get-paid-books", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email: currentUser.email })
+                    });
+                    const result = await response.json();
+                    const paidBooks = result.success ? result.paidBooks.map(title => title.trim()) : [];
+
+                    // Load all books
+                    const booksResponse = await fetch("http://127.0.0.1:5000/get-books");
+                    const books = await booksResponse.json();
+
+                    const booksList = document.getElementById("booksList");
+                    if (!booksList) return;
+
+                    // Process each book item
+                    const bookItems = booksList.querySelectorAll(".book-item"); // adjust selector as needed
+                    bookItems.forEach(bookItem => {
+                        const bookTitle = bookItem.querySelector(".bookTitle")?.innerText.trim();
+                        if (!bookTitle) return;
+
+                        const book = books.find(b => b.title.trim() === bookTitle);
+                        if (!book) return;
+
+                        const previewBtn = bookItem.querySelector(".preview");
+                        const addCartBtn = bookItem.querySelector(".add-cart");
+                        const imgBook = bookItem.querySelector(".img-book");
+
+                        // Hide only preview and add-cart if user already paid OR book has Amazon link
+                        if (paidBooks.includes(bookTitle) || (book.amazon && book.amazon.trim() !== "")) {
+                            if (previewBtn) previewBtn.style.display = "none";
+                            if (addCartBtn) addCartBtn.style.display = "none";
+                            if (imgBook) imgBook.style.setProperty("--hide-before", "none");
+                        }
+                    });
+
+                } catch (error) {
+                    console.error("Error checking and hiding buttons:", error);
+                }
+            }
+
+
+
+            document.addEventListener("DOMContentLoaded", checkAndHideViewButtons);
+
+
+
+
+
+
+
+
+
+            async function viewBook(button) {
+                const bookItem = button.closest("li");
+                const bookTitle = bookItem.querySelector(".bookTitle").innerText.trim();
+
+                try {
+                    const response = await fetch("http://127.0.0.1:5000/get-books");
+                    const books = await response.json();
+
+                    const book = books.find(b => b.title.trim() === bookTitle);
+                    if (!book) return alert("Book not found!");
+
+                    const modalOverlay = document.querySelector(".modal-overlay");
+                    const modal = modalOverlay.querySelector(".modal");
+
+                    // ✅ Fill in modal fields
+                    modal.querySelector(".book-image img").src = book.image;
+                    modal.querySelector(".book-image img").alt = book.title;
+                    modal.querySelector(".book-details h2").innerText = book.title;
+                    modal.querySelector(".book-details .price").innerText = `$${book.price}`;
+                    modal.querySelector(".book-details .rating").innerText = `⭐ ⭐ ⭐ ⭐ ⭐ ${book.rating}/5`;
+                    modal.querySelector(".book-details .description").innerText = book.description;
+
+                    // ✅ Include ISBN, Pages, Year, Category
+                    const meta = modal.querySelector(".book-details .meta");
+                    meta.innerHTML = `
+            <p><strong>Year:</strong> ${book.year}</p>
+            <p><strong>Pages:</strong> ${book.pages}</p>
+            <p><strong>ISBN:</strong> ${book.isbn}</p>
+            <p><strong>Category:</strong> ${book.category.toUpperCase()}</p>
+        `;
+
+                    // ✅ Hide Preview/Add to Cart buttons if Amazon link exists
+                    const previewBtn = modal.querySelector(".preview");
+                    const addCartBtn = modal.querySelector(".add-cart");
+
+                    if (book.amazon && book.amazon.trim() !== "") {
+                        if (previewBtn) previewBtn.style.display = "none";
+                        if (addCartBtn) addCartBtn.style.display = "none";
+                    } else {
+                        if (previewBtn) previewBtn.style.display = "inline-block";
+                        if (addCartBtn) addCartBtn.style.display = "inline-block";
+                    }
+
+                    modalOverlay.style.display = "flex";
+
+                } catch (error) {
+                    console.error("Error fetching book data:", error);
+                }
+            }
+
+
+
+
+
+
+
+            function savePreviewedBook(li) {
+                const bookTitle = li.querySelector(".bookTitle").textContent;
+                localStorage.setItem("previewedBook", bookTitle);
+                console.log(`Saved book: ${bookTitle}`);
+                // Opens in a new tab
+                window.open('preview.html', '_blank');
+
+            }
+
+            function savePreviewedBookByTitle(title) {
+                localStorage.setItem("previewedBook", title);
+                console.log(`Saved book: ${title}`);
+                window.open('preview.html', '_blank');
+            }
+
+            // Add book to cart from list page
+            async function addToCart(button) {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (!currentUser || !currentUser.email) return alert("Please log in first.");
+
+                const bookItem = button.closest("li");
+                const title = bookItem.querySelector(".bookTitle").innerText.trim();
+
+                try {
+                    const response = await fetch("http://127.0.0.1:5000/add-to-cart", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email: currentUser.email, title })
+                    });
+
+                    const result = await response.json();
+
+                    if (!result.success) {
+                        alert(result.message); // fallback
+                    } else {
+                        showCartNotification(title); // ✅ use notification instead of alert
+                        renderCart(); // update cart UI
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert("Failed to add book to database.");
+                }
+            }
+
+            // Add book to cart from details page
+            async function addToCartByDetails(book) {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (!currentUser || !currentUser.email) return alert("Please log in first.");
+
+                try {
+                    const response = await fetch("http://127.0.0.1:5000/add-to-cart", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email: currentUser.email, title: book.title })
+                    });
+
+                    const result = await response.json();
+
+                    if (!result.success) {
+                        alert(result.message); // fallback
+                    } else {
+                        showCartNotification(book.title); // ✅ use notification instead of alert
+                        renderCart(); // update cart UI
+                    }
+                } catch (error) {
+                    console.error("Failed to add book to database:", error);
+                    alert("Could not add book to cart. Try again later.");
+                }
+            }
+
+            // Notification function
+            function showCartNotification(title) {
+                const notification = document.getElementById("cartNotification");
+                if (!notification) return;
+
+                notification.innerText = `"${title}" added to cart!`;
+                notification.classList.add("show");
+
+                // Hide after 2 seconds
+                setTimeout(() => notification.classList.remove("show"), 2000);
+            }
+
+
+            async function renderCart() {
+                const cartSidebar = document.getElementById("cartSidebar");
+                if (!cartSidebar) return;
+
+                let cartContainer = cartSidebar.querySelector(".cart-items");
+                if (!cartContainer) {
+                    cartContainer = document.createElement("div");
+                    cartContainer.className = "cart-items";
+                    const cartFooter = cartSidebar.querySelector(".cart-footer");
+                    if (cartFooter) cartSidebar.insertBefore(cartContainer, cartFooter);
+                    else cartSidebar.appendChild(cartContainer);
+                }
+
+                const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+                if (!currentUser || !currentUser.email) return;
+
+                cartContainer.innerHTML = "";
+                let total = 0;
+
+                try {
+                    const response = await fetch("http://127.0.0.1:5000/get-cart", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email: currentUser.email })
+                    });
+                    const result = await response.json();
+                    const cartBooks = result.cart || [];
+
+                    if (cartBooks.length === 0) {
+                        cartContainer.innerHTML = `<div class="empty-cart">Your cart is empty. Add some books to get started!</div>`;
+                        const totalEl = cartSidebar.querySelector(".cart-total span:last-child");
+                        if (totalEl) totalEl.innerText = "$0.00";
+                        return;
+                    }
+
+                    cartBooks.forEach(bookData => {
+                        // ✅ Ensure price is a number
+                        const price = parseFloat(bookData.price) || 0;
+                        total += price;
+
+                        const cartItem = document.createElement("div");
+                        cartItem.className = "cart-item";
+                        cartItem.innerHTML = `
+                <img src="${bookData.image}" alt="Book">
+                <div class="cart-item-info">
+                    <h4>${bookData.title}</h4>
+                    <p>$${price.toFixed(2)}</p>
+                </div>
+            `;
+
+                        const removeBtn = document.createElement("button");
+                        removeBtn.className = "remove-btn";
+                        removeBtn.innerText = "Remove";
+                        removeBtn.addEventListener("click", () => removeFromCart(bookData.id)); // ✅ Use ID, not title
+
+                        cartItem.querySelector(".cart-item-info").appendChild(removeBtn);
+                        cartContainer.appendChild(cartItem);
+                    });
+
+                    const totalEl = cartSidebar.querySelector(".cart-total span:last-child");
+                    if (totalEl) totalEl.innerText = `$${total.toFixed(2)}`;
+
+                } catch (err) {
+                    console.error("Error rendering cart:", err);
+                }
+            }
+
+
+
+
+
+            async function removeFromCart(bookId) {
+                const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+                if (!currentUser || !currentUser.email) {
+                    return alert("Please log in first.");
+                }
+
+                try {
+                    const response = await fetch("http://127.0.0.1:5000/remove-from-cart", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            email: currentUser.email,
+                            bookId: bookId   // ✅ send ID
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (!result.success) {
+                        console.warn(result.message);
+                        return;
+                    }
+
+                    // ✅ Lookup title from cached books
+                    const allBooks = JSON.parse(localStorage.getItem("allBooks")) || [];
+                    const book = allBooks.find(b => b.id === bookId);
+                    const bookTitle = book ? book.title : `ID ${bookId}`;
+
+                    console.log(`Removed "${bookTitle}" from cart`);
+
+                    // ✅ Refresh cart after removal
+                    renderCart();
+
+                } catch (error) {
+                    console.error("Failed to remove book from database:", error);
+                    alert("Could not remove book. Try again later.");
+                }
+            }
+
+
+            // Optional: close modal by clicking overlay
+            document.querySelector(".modal-overlay").onclick = function (e) {
+                if (e.target === this) this.style.display = "none";
+            }
+
+            // Fetch books from JSON
+            document.addEventListener("DOMContentLoaded", async () => {
+                const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+                let paidBooks = [];
+
+                if (currentUser?.email) {
+                    try {
+                        const response = await fetch("http://127.0.0.1:5000/get-paid-books", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ email: currentUser.email })
+                        });
+                        const result = await response.json();
+                        if (result.success && Array.isArray(result.paidBooks)) {
+                            paidBooks = result.paidBooks.map(title => title.trim());
+                        }
+                        console.log("User's paid books:", paidBooks);
+                    } catch (err) {
+                        console.error("Failed to fetch paid books:", err);
+                    }
+                } else {
+                    console.warn("No user logged in — skipping paid books fetch");
+                }
+
+                // Load all books
+                try {
+                    const response = await fetch("http://127.0.0.1:5000/get-books");
+                    const data = await response.json();
+                    const booksList = document.getElementById("booksList");
+                    booksList.innerHTML = "";
+
+                    data.forEach(book => {
+                        const li = document.createElement("li");
+                        li.setAttribute("data-category", book.category);
+
+                        li.innerHTML = `
+                <div class="img-book" style="background-image: url('${book.image}');">
+                    <button class='view-btn'>View Quick</button>
+                </div>
+                <div class="book-info">
+                    <h2 class="bookTitle">${book.title}</h2>
+                    <p>${book.description}</p>
+                    <div class="book-r-p">
+                        <p>★★★★☆ ${book.rating}</p>
+                        <h1 class='pricetag'>$${book.price}</h1>
+                    </div>
+                    <div class="btn-books"></div>
+                </div>
+            `;
+                        booksList.appendChild(li);
+
+                        const btnContainer = li.querySelector(".btn-books");
+                        btnContainer.innerHTML = "";
+
+                        if (paidBooks.includes(book.title)) {
+                            // Paid books → show "Start Read"
+                            const downloadBtn = document.createElement("button");
+                            downloadBtn.className = "download-btn";
+                            downloadBtn.textContent = "Start Read";
+                            downloadBtn.addEventListener("click", async () => {
+                                try {
+                                    const allBooksResp = await fetch("http://127.0.0.1:5000/get-books");
+                                    const allBooks = await allBooksResp.json();
+                                    const paidBook = allBooks.find(b => b.title === book.title);
+
+                                    if (paidBook?.pdf) {
+                                        window.open(paidBook.pdf, "_blank");
+                                    } else {
+                                        alert("PDF file not found for this book.");
+                                    }
+                                } catch (err) {
+                                    console.error("Error fetching all-books:", err);
+                                    alert("Failed to load book PDF.");
+                                }
+                            });
+                            btnContainer.appendChild(downloadBtn);
+                        } else {
+                            // Not paid → show only store/cart/preview buttons based on database
+                            if (book.amazon) {
+                                const amzBtn = document.createElement("button");
+                                amzBtn.className = "amazon-btn";
+                                amzBtn.addEventListener("click", () => window.open(book.amazon, "_blank"));
+                                btnContainer.appendChild(amzBtn);
+                            }
+
+                            // Preview and cart buttons if no Amazon link
+                            if (!book.amazon) {
+                                const previewBtn = document.createElement("button");
+                                previewBtn.className = "preview-btn";
+                                previewBtn.innerHTML = `<img src="img/preview-ico.svg" alt=""> Preview`;
+                                previewBtn.addEventListener("click", () => savePreviewedBook(li));
+                                btnContainer.appendChild(previewBtn);
+
+                                const cartBtn = document.createElement("button");
+                                cartBtn.className = "addToCartBtn";
+                                cartBtn.innerHTML = `<img src="img/cart.svg" alt="" style="height: 1.9em; margin-bottom: 0.3rem;"> Add to Cart`;
+                                cartBtn.addEventListener("click", () => addToCart(cartBtn));
+                                btnContainer.appendChild(cartBtn);
+                            }
+                        }
+
+                        li.querySelector(".view-btn").addEventListener("click", () => viewBook(li.querySelector(".view-btn")));
+                    });
+                } catch (error) {
+                    console.error("Error loading books:", error);
+                }
+            });
+
+
+
+            function loader(seconds, callback) {
+                const overlay = document.getElementById('loadingOverlay');
+                overlay.style.display = "flex";
+
+                setTimeout(() => {
+                    overlay.style.display = "none";
+                    if (callback) callback();
+                }, seconds * 1000);
+            }
+
+
+
+
+
+
+
+
+
+            let cart = JSON.parse(localStorage.getItem("bookCart")) || [];
+            console.log("Current bookCart:", cart);
+
+        </script>
+
+
+    </div>
+</body>
+
+</html>

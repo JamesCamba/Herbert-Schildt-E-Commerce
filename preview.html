@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>PDF Preview</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top bar */
+    #topbar {
+      background: #6e4b4b;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    #topbar h1 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    #pageInfo {
+      font-size: 14px;
+    }
+
+    .zoom-controls button,
+    #closeBtn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    /* Layout */
+    #container {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Sidebar thumbnails */
+    #sidebar {
+      width: 180px;
+      background: #f0f0f0;
+      overflow-y: auto;
+      border-right: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    #sidebar canvas {
+      width: 100%;
+      margin-bottom: 10px;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+
+    #sidebar canvas.active {
+      border: 2px solid #007bff;
+    }
+
+    /* Main viewer */
+    #viewer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #eaeaea;
+      overflow: auto;
+    }
+
+    #mainCanvas {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      border-radius: 6px;
+      margin: 2rem 0;
+    }
+
+    #viewer {
+      flex: 1;
+      overflow-y: auto;
+      /* ✅ enables vertical scroll */
+      background: #eaeaea;
+      padding: 20px;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 1024px) {
+      #topbar {
+        padding: 8px 16px;
+      }
+      
+      #topbar h1 {
+        font-size: 16px;
+      }
+      
+      #pageInfo {
+        font-size: 12px;
+      }
+      
+      .zoom-controls button,
+      #closeBtn {
+        font-size: 16px;
+        margin-left: 8px;
+      }
+      
+      #sidebar {
+        width: 150px;
+        padding: 8px;
+      }
+      
+      #viewer {
+        padding: 16px;
+      }
+      
+      #mainCanvas {
+        margin: 1.5rem 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      #topbar {
+        padding: 6px 12px;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      
+      #topbar h1 {
+        font-size: 14px;
+      }
+      
+      #pageInfo {
+        font-size: 11px;
+      }
+      
+      .zoom-controls button,
+      #closeBtn {
+        font-size: 14px;
+        margin-left: 6px;
+        padding: 4px 8px;
+      }
+      
+      #container {
+        flex-direction: column;
+      }
+      
+      #sidebar {
+        width: 100%;
+        height: 120px;
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+        padding: 8px;
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+      
+      #sidebar canvas {
+        width: 80px;
+        height: 100px;
+        margin-right: 8px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+      
+      #viewer {
+        padding: 12px;
+        flex: 1;
+      }
+      
+      #mainCanvas {
+        margin: 1rem 0;
+        max-width: 100%;
+        height: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #topbar {
+        padding: 4px 8px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+      
+      #topbar > div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      
+      #topbar h1 {
+        font-size: 12px;
+      }
+      
+      #pageInfo {
+        font-size: 10px;
+      }
+      
+      .zoom-controls button,
+      #closeBtn {
+        font-size: 12px;
+        margin-left: 4px;
+        padding: 2px 6px;
+      }
+      
+      #sidebar {
+        height: 100px;
+        padding: 6px;
+      }
+      
+      #sidebar canvas {
+        width: 60px;
+        height: 80px;
+        margin-right: 6px;
+      }
+      
+      #viewer {
+        padding: 8px;
+      }
+      
+      #mainCanvas {
+        margin: 0.5rem 0;
+      }
+    }
+
+    @media (orientation: landscape) and (max-height: 500px) {
+      #topbar {
+        padding: 4px 12px;
+      }
+      
+      #sidebar {
+        height: 80px;
+      }
+      
+      #sidebar canvas {
+        width: 50px;
+        height: 60px;
+      }
+      
+      #viewer {
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Bar -->
+  <div id="topbar">
+    <div><img src="img/logo-white.svg" alt=""></div>
+    <div>
+      <h1>Preview</h1>
+      <div id="pageInfo">1 / 1</div>
+    </div>
+    <div>
+      <span class="zoom-controls">
+        <button id="zoomIn">+</button>
+        <button id="zoomOut">−</button>
+      </span>
+      <button id="closeBtn">Close</button>
+    </div>
+  </div>
+
+  <!-- Main Layout -->
+  <div id="container">
+    <div id="sidebar"></div>
+    <div id="viewer">
+      <canvas id="mainCanvas"></canvas>
+    </div>
+  </div>
+
+  <!-- PDF.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    // PDF.js worker
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "module/pdf.worker.min.js";
+
+    const previewBook = localStorage.getItem("previewedBook");
+
+    if (!previewBook) {
+      alert("No preview book found in localStorage!");
+    } else {
+      fetch("http://127.0.0.1:5000/get-books")
+        .then(res => res.json())
+        .then(allBooks => {
+          const book = allBooks.find(
+            b => b.title?.trim().toLowerCase() === previewBook.trim().toLowerCase()
+          );
+          if (!book || !book.pdf) {
+            console.error("Book PDF not found in database");
+            return;
+          }
+
+          // Use only the filename, remove any folders
+          let filename = book.pdf.split(/[/\\]/).pop(); // split by / or \
+
+          // Remove parentheses or underscores at the start
+          filename = filename.replace(/^\(.*?\)/, "").replace(/^[_\s]+/, "");
+
+          // Construct URL correctly
+          const url = `/books-pdf/${filename}`;
+          console.log("Loading PDF:", url); // /books-pdf/qrcode-barcode-demo.pdf
+
+          initPDF(url);
+        })
+        .catch(err => console.error("Error fetching books:", err));
+
+
+    }
+
+
+
+
+
+    // PDF.js viewer function
+    async function initPDF(url) {
+      let pdfDoc = null;
+      let scale = 0.7;
+      let currentPage = 1;
+      const limitPages = 20;
+
+      const pdfViewer = document.getElementById("mainCanvas");
+      const sidebar = document.getElementById("sidebar");
+      const pageInfo = document.getElementById("pageInfo");
+
+      // Load PDF (wrap url in object!)
+      pdfDoc = await pdfjsLib.getDocument({ url }).promise;
+
+      const totalPages = Math.min(pdfDoc.numPages, limitPages);
+      pageInfo.textContent = `${currentPage} / ${totalPages}`;
+
+      await renderPage(currentPage);
+      renderThumbnails(totalPages);
+      enableScrollNavigation();
+
+      // Render a single page
+      async function renderPage(pageNum) {
+        if (pageNum < 1 || pageNum > limitPages) return;
+
+        const page = await pdfDoc.getPage(pageNum);
+        const viewport = page.getViewport({ scale });
+        const ctx = pdfViewer.getContext("2d");
+        pdfViewer.width = viewport.width;
+        pdfViewer.height = viewport.height;
+
+        // Render PDF page
+        await page.render({ canvasContext: ctx, viewport }).promise;
+
+        // Add watermark
+        const watermarkText = "Buy this book to view all"; // change text as needed
+        ctx.save();
+        ctx.font = `${Math.floor(viewport.width / 10)}px Arial`; // adjust size
+        ctx.fillStyle = "rgba(255, 0, 0, 0.8)"; // semi-transparent red
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.translate(viewport.width / 2, viewport.height / 2);
+        ctx.rotate(-Math.PI / 5); // rotate for diagonal effect
+        ctx.fillText(watermarkText, 0, 0);
+        ctx.restore();
+
+        currentPage = pageNum;
+        pageInfo.textContent = `${currentPage} / ${totalPages}`;
+      }
+      // Sidebar thumbnails
+      function renderThumbnails(totalPages) {
+        sidebar.innerHTML = "";
+        for (let i = 1; i <= totalPages; i++) {
+          pdfDoc.getPage(i).then(page => {
+            const viewport = page.getViewport({ scale: 0.2 });
+            const canvas = document.createElement("canvas");
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            const ctx = canvas.getContext("2d");
+            page.render({ canvasContext: ctx, viewport });
+            sidebar.appendChild(canvas);
+
+            canvas.onclick = () => renderPage(i);
+          });
+        }
+      }
+
+      // Zoom controls
+      document.getElementById("zoomIn").onclick = () => {
+        scale += 0.2;
+        renderPage(currentPage);
+      };
+      document.getElementById("zoomOut").onclick = () => {
+        if (scale > 0.4) {
+          scale -= 0.2;
+          renderPage(currentPage);
+        }
+      };
+
+      // Close button
+      document.getElementById("closeBtn").onclick = () => {
+        location.href = 'browse-book.html';
+      };
+
+      // Scroll navigation
+      function enableScrollNavigation() {
+        let scrollCooldown = false;
+
+        pdfViewer.addEventListener("wheel", (event) => {
+          if (scrollCooldown) return;
+
+          if (event.deltaY > 0 && currentPage < limitPages) renderPage(currentPage + 1);
+          else if (event.deltaY < 0 && currentPage > 1) renderPage(currentPage - 1);
+
+          scrollCooldown = true;
+          setTimeout(() => { scrollCooldown = false; }, 150);
+        });
+
+        // Optional: scroll bar navigation
+        pdfViewer.addEventListener("scroll", () => {
+          const containerHeight = pdfViewer.scrollHeight - pdfViewer.clientHeight;
+          if (containerHeight <= 0) return;
+
+          const scrollRatio = pdfViewer.scrollTop / containerHeight;
+          const pageNum = Math.min(limitPages, Math.max(1, Math.round(scrollRatio * totalPages)));
+
+          if (pageNum !== currentPage) renderPage(pageNum);
+        });
+      }
+    }
+    console.log(localStorage.getItem("previewedBook"));
+
+
+  </script>
+
+</body>
+
+</html>

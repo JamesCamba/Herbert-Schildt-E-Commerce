@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/cart.css">
+    <title>Shopping Cart - Herbert Schildt</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="../img/logo.svg" alt="Herbert Schildt Logo" style="height: 60px; margin: 0.5rem 1rem;">
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../browse-book.html" class="nav-link">Browse Books</a>
+                <a href="#" class="nav-link cart-link">Cart (<span id="cart-count">0</span>)</a>
+            </div>
+        </div>
+
+        <div class="cart-hero-section">
+            <div class="cart-title">
+                <h1>Shopping Cart</h1>
+                <p>Review your selected books and proceed to checkout</p>
+            </div>
+        </div>
+
+
+        <div class="loading-Overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+        </div>
+
+        <div class="hr-1" style="margin-top: 2rem; background-image: url(../img/hr-1.svg); height: 7rem;"></div>
+
+        <div class="cart-content">
+            <div class="cart-items-section">
+                <div class="cart-items-header">
+                    <h2>Your Books</h2>
+                    <button id="clear-cart" class="clear-cart-btn">Clear All</button>
+                </div>
+
+                <div id="cart-items" class="cart-items">
+                    <!-- Cart items will be dynamically inserted here -->
+                    <div class="empty-cart">
+                        <div class="empty-cart-content">
+                            <img src="../img/books/Java Complete.jpg" alt="Empty Cart" class="empty-cart-image">
+                            <h3>Your cart is empty</h3>
+                            <p>Add some books to get started!</p>
+                            <a href="../browse-book.html" class="browse-btn">Browse Books</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-summary">
+                <div class="summary-card">
+                    <h3>Order Summary</h3>
+                    <div class="summary-details">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <!-- <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span id="shipping">$5.99</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax:</span>
+                            <span id="tax">$0.00</span>
+                        </div> -->
+                        <hr class="summary-divider">
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span id="total">$0.00</span>
+                        </div>
+                    </div>
+                    <button id="checkout-btn" class="checkout-btn" disabled>
+                        <img src="../img/arrow-right.svg" alt="" style="height: 20px;">
+                        Proceed to Checkout
+                    </button>
+                    <div class="continue-shopping">
+                        <a href="../browse-book.html">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="hr-2"
+            style="margin-top: 3rem; background-image: url(../img/hr-2.svg); height: 15rem; background-repeat: no-repeat; background-size: cover;">
+        </div>
+
+        <div class="recommended-section">
+            <h2>You might also like</h2>
+            <div class="recommended-books">
+                <div class="recommended-book" data-book-id="java-complete">
+                    <img src="../img/books/Java Complete.jpg" alt="Java Complete Reference">
+                    <h4>Java: The Complete Reference</h4>
+                    <p class="book-price">$49.99</p>
+                    <button class="add-to-cart-btn" data-book-id="java-complete">Add to Cart</button>
+                </div>
+                <div class="recommended-book" data-book-id="c-complete">
+                    <img src="../img/books/C,_The_Complete_Reference.jpg" alt="C Complete Reference">
+                    <h4>C: The Complete Reference</h4>
+                    <p class="book-price">$45.99</p>
+                    <button class="add-to-cart-btn" data-book-id="c-complete">Add to Cart</button>
+                </div>
+                <div class="recommended-book" data-book-id="cpp-complete">
+                    <img src="../img/books/c++ complete.jpg" alt="C++ Complete Reference">
+                    <h4>C++: The Complete Reference</h4>
+                    <p class="book-price">$47.99</p>
+                    <button class="add-to-cart-btn" data-book-id="cpp-complete">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="paypal-overlay"></div>
+
+        <div id="paypal-button-container">
+            <button id="paypal-close">&times;</button>
+            <!-- PayPal buttons will be rendered here -->
+        </div>
+
+
+
+        <div class="hr-3"
+            style="margin-top: 3rem; background-image: url(../img/hr-3.svg); height: 3rem; background-repeat: no-repeat; background-size: cover; position: relative; z-index: 10;">
+        </div>
+
+        <div class="footer">
+            <div class="footer-content">
+                <!-- Left section -->
+                <div class="footer-left">
+                    <h3>Herbert Schildt</h3>
+                    <p>Your trusted source for programming knowledge and IT learning resources.</p>
+
+                    <div class="social-icons">
+                        <a href="#"><img src="../img/amazon.svg" alt="Amazon"></a>
+                        <a href="#"><img src="../img/goodreads.svg" alt="Goodreads"></a>
+                    </div>
+                </div>
+
+                <!-- Right section -->
+                <div class="footer-right">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><span>📧</span> <a href="mailto:Herb@herbschildt.com">Herb@herbschildt.com</a></li>
+                        <li><span>📞</span> +1 (555) 123-4567</li>
+                        <li><span>📍</span> McGraw-Hill Education</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr>
+            <div class="footer-bottom">
+                <p>© 2024 Herbert Schildt. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=AWYlASy5Aphiy_L7CuNYTA9XbCpmdb7CIpEGjwIGMiN9KDLxYVbH-oaPkjP9rrLoU84MmO9TG0MysFI2&currency=USD"></script>
+    <script src="cart.js"></script>
+    <script>
+
+        
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            (async () => {
+                window.cart = new ShoppingCart();
+                await window.cart.init(); // wait for async init
+
+                // Check if cart is empty on load
+                if (!window.cart.items || window.cart.items.length === 0) {
+                    const subtotalEl = document.getElementById('subtotal');
+                    const totalEl = document.getElementById('total');
+                    const checkoutBtn = document.getElementById('checkout-btn');
+
+                    if (subtotalEl) subtotalEl.textContent = '$0.00';
+                    if (totalEl) totalEl.textContent = '$0.00';
+                    if (checkoutBtn) checkoutBtn.disabled = true;
+
+                    console.log('Cart is empty on page load. Subtotal and Total set to $0.00');
+                } else {
+                    console.log('Cart loaded with items:', window.cart.items);
+                }
+            })();
+        });
+
+        // Attach click events to recommended section
+        document.querySelectorAll(".recommended-book .add-to-cart-btn").forEach(btn => {
+            btn.addEventListener("click", async () => {
+                const bookElement = btn.closest(".recommended-book");
+
+                // Build the book object from DOM
+                const book = {
+                    id: bookElement.dataset.bookId,
+                    title: bookElement.querySelector("h4").innerText,
+                    price: bookElement.querySelector(".book-price").innerText,
+                    image: bookElement.querySelector("img").getAttribute("src")
+                };
+
+                // Wait for addItem to finish
+                await cart.addItem(book);
+
+                // Option 1: reload current page
+                window.location.reload();
+
+                // OR Option 2: redirect straight to cart page
+                // window.location.href = "cart.html";
+            });
+        });
+
+
+        function loader(seconds, callback) {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.style.display = "flex";
+
+            setTimeout(() => {
+                overlay.style.display = "none";
+                if (callback) callback();
+            }, seconds * 1000);
+        }
+
+
+    </script>
+</body>
+
+</html>
