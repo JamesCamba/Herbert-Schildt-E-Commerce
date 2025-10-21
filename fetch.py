@@ -16,7 +16,7 @@ from flask import Flask, send_from_directory
 from flask import jsonify
 
 
-BOOKS_JSON_PATH = os.path.join(os.path.dirname(__file__), "all-books.json")
+BOOKS_JSON_PATH = os.path.join(os.getcwd(), "all-books.json")
 app = Flask(__name__, static_folder="", static_url_path="")
 CORS(app)  # ✅ Enable CORS for all routes
 
@@ -906,3 +906,4 @@ def home():
 if __name__ == "__main__":
 
     app.run(debug=True)
+
