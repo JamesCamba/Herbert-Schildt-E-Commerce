@@ -57,9 +57,9 @@ def login():
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT [UserID], [Email], [Password], [FullName], [Blocked]
-        FROM [dbo].[Users]
-        WHERE [Email] = ? AND [Password] = ?
+        SELECT "UserID", "Email", "Password", "FullName", "Blocked"
+        FROM "Users"
+        WHERE "Email" = %s AND "Password" = %s
     """, (email, password))
 
     user = cursor.fetchone()
@@ -110,7 +110,7 @@ def get_paid_books():
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT Paid_Book FROM Users WHERE Email = ?", (email,))
+        cursor.execute('SELECT "Paid_Book" FROM "Users" WHERE "Email" = %s', (email,))
         row = cursor.fetchone()
 
         if row and row[0]:
@@ -216,17 +216,12 @@ def backup_databases():
 def get_users():
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("""
-        SELECT TOP (1000)
-            UserID,
-            FullName,
-            Email,
-            Password,
-            Cart,
-            Paid_Book,
-            Date_Joined
-        FROM [DBCRUD].[dbo].[Users]
-    """)
+cursor.execute("""
+    SELECT "UserID", "FullName", "Email", "Password", "Cart",
+           "Paid_Book", "Date_Joined"
+    FROM "Users"
+    LIMIT 1000
+""")
     columns = [column[0] for column in cursor.description]
     users = [dict(zip(columns, row)) for row in cursor.fetchall()]
     conn.close()
@@ -324,11 +319,11 @@ def add_book():
               cover_path, year, pages, isbn, pdf_path, amazon)
 
         # Insert into database
-        cursor.execute("""
-            INSERT INTO Books (title, author, description, price, category, rating,
-                               image, year, pages, isbn, pdf, amazon, noStock)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """, (
+    cursor.execute("""
+        INSERT INTO "Books" ("title", "author", "description", "price", "category", "rating",
+                             "image", "year", "pages", "isbn", "pdf", "amazon", "noStock")
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    """, (
             title, author, description, float(price), category, float(rating),
             cover_path, year, pages, isbn, pdf_path, amazon, 0
         ))
@@ -355,7 +350,7 @@ def delete_user(user_id):
         cursor = conn.cursor()
         
         # Delete user by ID
-        cursor.execute("DELETE FROM Users WHERE UserID = ?", user_id)
+        cursor.execute('DELETE FROM "Users" WHERE "UserID" = %s', (user_id,))
         conn.commit()
         cursor.close()
         conn.close()
@@ -375,7 +370,7 @@ def delete_book(book_id):
     cursor = conn.cursor()
     try:
         # 1️⃣ Retrieve the file paths first
-        cursor.execute("SELECT pdf, image FROM Books WHERE id = ?", (book_id,))
+        cursor.execute('SELECT "pdf", "image" FROM "Books" WHERE "id" = %s', (book_id,))
         row = cursor.fetchone()
         if not row:
             return jsonify({"error": "Book not found"}), 404
@@ -394,7 +389,7 @@ def delete_book(book_id):
                 os.remove(cover_full_path)
 
         # 3️⃣ Delete the DB record
-        cursor.execute("DELETE FROM Books WHERE id = ?", (book_id,))
+        cursor.execute('DELETE FROM "Books" WHERE "id" = %s', (book_id,))
         conn.commit()
 
         return jsonify({"message": "Book and associated files deleted successfully"}), 200
@@ -420,9 +415,9 @@ def get_fullname():
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT [FullName]
-        FROM [dbo].[Users]
-        WHERE [Email] = ?
+        SELECT "FullName"
+        FROM "Users"
+        WHERE "Email" = %s
     """, (email,))
     user = cursor.fetchone()
     conn.close()
@@ -475,8 +470,7 @@ def pay_cart():
         cursor = conn.cursor()
 
         # Get existing Cart and Paid_Book values
-        cursor.execute(
-            "SELECT Cart, Paid_Book FROM Users WHERE Email = ?", (email,))
+        cursor.execute('SELECT "Cart", "Paid_Book" FROM "Users" WHERE "Email" = %s', (email,))
         row = cursor.fetchone()
 
         if not row or not row[0]:
@@ -491,7 +485,7 @@ def pay_cart():
 
         # Update Paid_Book (JSON) and clear Cart
         cursor.execute(
-            "UPDATE Users SET Paid_Book = ?, Cart = NULL WHERE Email = ?",
+            'UPDATE "Users" SET "Paid_Book" = %s, "Cart" = NULL WHERE "Email" = %s',
             (json.dumps(updated_paid_books), email)
         )
         conn.commit()
@@ -516,15 +510,14 @@ def clear_cart():
     cursor = conn.cursor()
 
     # Check if user exists
-    cursor.execute("SELECT Cart FROM dbo.Users WHERE Email = ?", (email,))
+    cursor.execute('SELECT "Cart" FROM "Users" WHERE "Email" = %s', (email,))
     row = cursor.fetchone()
     if not row:
         conn.close()
         return jsonify({"success": False, "message": "User not found"}), 404
 
     # Clear the cart
-    cursor.execute(
-        "UPDATE dbo.Users SET Cart = NULL WHERE Email = ?", (email,))
+    cursor.execute('UPDATE "Users" SET "Cart" = NULL WHERE "Email" = %s', (email,))
     conn.commit()
     conn.close()
 
@@ -560,20 +553,20 @@ def update_book(book_id):
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute("""
-            UPDATE Books
-            SET title = ?,
-                description = ?,
-                price = ?,
-                category = ?,
-                rating = ?,
-                year = ?,
-                pages = ?,
-                isbn = ?,
-                pdf = ?,
-                image = ?,
-                amazon = ?,
-                noStock = ?
-            WHERE id = ?
+            UPDATE "Books"
+            SET "title" = %s,
+                "description" = %s,
+                "price" = %s,
+                "category" = %s,
+                "rating" = %s,
+                "year" = %s,
+                "pages" = %s,
+                "isbn" = %s,
+                "pdf" = %s,
+                "image" = %s,
+                "amazon" = %s,
+                "noStock" = %s
+            WHERE "id" = %s
         """, (
             title, description, price, category, rating, year, pages, isbn,
             pdf_rel_path, image_value, amazon, noStock, book_id
@@ -612,7 +605,7 @@ def upload_cover(book_id):
 
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("UPDATE Books SET image = ? WHERE id = ?", (rel_path, book_id))
+        cursor.execute('UPDATE "Books" SET "image" = %s WHERE "id" = %s', (rel_path, book_id))
         conn.commit()
         cursor.close()
         conn.close()
@@ -628,7 +621,7 @@ def get_pdf(book_id):
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT pdf FROM Books WHERE id = ?", (book_id,))
+        cursor.execute('SELECT "pdf" FROM "Books" WHERE "id" = %s', (book_id,))
         row = cursor.fetchone()
         cursor.close()
         conn.close()
@@ -664,9 +657,9 @@ def block_user(user_id):
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute("""
-            UPDATE Users
-            SET Blocked = ?
-            WHERE UserID = ?
+            UPDATE "Users"
+            SET "Blocked" = %s
+            WHERE "UserID" = %s
         """, (unblock_date, user_id))
         conn.commit()
         cursor.close()
@@ -687,7 +680,7 @@ def check_block(user_id):
         cursor = conn.cursor()
 
         # Fetch the Blocked datetime
-        cursor.execute("SELECT Blocked FROM Users WHERE UserID = ?", (user_id,))
+        cursor.execute('SELECT "Blocked" FROM "Users" WHERE "UserID" = %s', (user_id,))
         row = cursor.fetchone()
         cursor.close()
         conn.close()
@@ -711,7 +704,7 @@ def unblock_user(user_id):
         conn = get_db_connection()
         cursor = conn.cursor()
         # Set Blocked column to NULL
-        cursor.execute("UPDATE Users SET Blocked = NULL WHERE UserID = ?", (user_id,))
+        cursor.execute('UPDATE "Users" SET "Blocked" = NULL WHERE "UserID" = %s', (user_id,))
         conn.commit()
         cursor.close()
         conn.close()
@@ -736,7 +729,7 @@ def add_to_cart():
     cursor = conn.cursor()
 
     # Fetch existing cart
-    cursor.execute("SELECT Cart FROM dbo.Users WHERE Email = ?", (email,))
+    cursor.execute('SELECT "Cart" FROM "Users" WHERE "Email" = %s', (email,))
     row = cursor.fetchone()
     if not row:
         conn.close()
@@ -755,8 +748,7 @@ def add_to_cart():
     cart_str = json.dumps(cart)
 
     # Update database
-    cursor.execute(
-        "UPDATE dbo.Users SET Cart = ? WHERE Email = ?", (cart_str, email))
+    cursor.execute('UPDATE "Users" SET "Cart" = %s WHERE "Email" = %s', (cart_str, email))
     conn.commit()
     conn.close()
 
@@ -774,7 +766,7 @@ def get_cart():
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT Cart FROM dbo.Users WHERE Email = ?", (email,))
+    cursor.execute('SELECT "Cart" FROM "Users" WHERE "Email" = %s', (email,))
     row = cursor.fetchone()
 
     if not row:
@@ -786,9 +778,8 @@ def get_cart():
 
     books = []
     if titles:
-        placeholders = ",".join("?" * len(titles))
-        cursor.execute(
-            f"SELECT * FROM Books WHERE title IN ({placeholders})", titles)
+        placeholders = ",".join(["%s"] * len(titles))
+        cursor.execute(f'SELECT * FROM "Books" WHERE "title" IN ({placeholders})', tuple(titles))
         columns = [col[0] for col in cursor.description]
         for r in cursor.fetchall():
             books.append(dict(zip(columns, r)))
@@ -810,7 +801,7 @@ def remove_from_cart():
     cursor = conn.cursor()
 
     # ✅ Get book title from Books table using bookId
-    cursor.execute("SELECT title FROM dbo.Books WHERE id = ?", (book_id,))
+    cursor.execute('SELECT "title" FROM "Books" WHERE "id" = %s', (book_id,))
     row = cursor.fetchone()
     if not row:
         conn.close()
@@ -819,7 +810,7 @@ def remove_from_cart():
     book_title = row[0]  # fetched title
 
     # ✅ Get user's cart
-    cursor.execute("SELECT Cart FROM dbo.Users WHERE Email = ?", (email,))
+    cursor.execute('SELECT "Cart" FROM "Users" WHERE "Email" = %s', (email,))
     user_row = cursor.fetchone()
     if not user_row:
         conn.close()
@@ -836,7 +827,7 @@ def remove_from_cart():
     cart.remove(book_title)
 
     # ✅ Update cart in DB
-    cursor.execute("UPDATE dbo.Users SET Cart = ? WHERE Email = ?",
+    cursor.execute('UPDATE "Users" SET "Cart" = %s WHERE "Email" = %s',
                    (json.dumps(cart), email))
     conn.commit()
     conn.close()
@@ -859,7 +850,7 @@ def signup():
         cursor = conn.cursor()
 
         # Check if email already exists
-        cursor.execute("SELECT COUNT(*) FROM Users WHERE Email = ?", (email,))
+        cursor.execute('SELECT COUNT(*) FROM "Users" WHERE "Email" = %s', (email,))
         if cursor.fetchone()[0] > 0:
             return jsonify({'success': False, 'message': 'Email is already registered.'})
 
@@ -867,8 +858,8 @@ def signup():
         date_joined = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         cursor.execute("""
-            INSERT INTO Users (FullName, Email, Password, Date_Joined, Blocked, Cart, Paid_Book)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO "Users" ("FullName", "Email", "Password", "Date_Joined", "Blocked", "Cart", "Paid_Book")
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
         """, (full_name, email, password, date_joined, 0, '', ''))
 
         conn.commit()
@@ -895,7 +886,7 @@ def update_password():
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
-            "UPDATE Users SET Password = ? WHERE Email = ?", (new_password, email))
+            'UPDATE "Users" SET "Password" = %s WHERE "Email" = %s', (new_password, email))
         conn.commit()
         cursor.close()
         conn.close()
@@ -911,6 +902,7 @@ def home():
 if __name__ == "__main__":
 
     app.run(debug=True)
+
 
 
 
