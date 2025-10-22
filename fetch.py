@@ -319,11 +319,11 @@ def add_book():
               cover_path, year, pages, isbn, pdf_path, amazon)
 
         # Insert into database
-    cursor.execute("""
-        INSERT INTO "Books" ("title", "author", "description", "price", "category", "rating",
-                             "image", "year", "pages", "isbn", "pdf", "amazon", "noStock")
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-    """, (
+        cursor.execute("""
+            INSERT INTO "Books" ("title", "author", "description", "price", "category", "rating",
+                                 "image", "year", "pages", "isbn", "pdf", "amazon", "noStock")
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """, (
             title, author, description, float(price), category, float(rating),
             cover_path, year, pages, isbn, pdf_path, amazon, 0
         ))
@@ -901,6 +901,7 @@ def home():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
 
 
 
