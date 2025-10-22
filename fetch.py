@@ -14,7 +14,7 @@ import sys
 sys.stdout.reconfigure(encoding='utf-8')
 from flask import Flask, send_from_directory
 from flask import jsonify
-
+import psycopg2
 
 BOOKS_JSON_PATH = os.path.join(os.getcwd(), "all-books.json")
 app = Flask(__name__, static_folder="", static_url_path="")
@@ -31,11 +31,11 @@ os.makedirs(UPLOAD_COVERS, exist_ok=True)
 
 
 def get_db_connection():
-    return pyodbc.connect(
-        "Driver={SQL Server};"
-        "Server=.\\SQLEXPRESS;"
-        "Database=DBCRUD;"
-        "Trusted_Connection=yes;"
+    return psycopg2.connect(
+        os.getenv(
+            "DATABASE_URL",
+            "postgresql://neondb_owner:npg_1MeBTYFx9XPN@ep-young-dawn-a1pvepi1-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+        )
     )
 
 
@@ -906,4 +906,5 @@ def home():
 if __name__ == "__main__":
 
     app.run(debug=True)
+
 
