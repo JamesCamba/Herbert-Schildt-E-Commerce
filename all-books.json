@@ -11,7 +11,7 @@
     "year": 2022,
     "pages": 1248,
     "isbn": "978-1260454468",
-    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/Java%20-%20A_Beginners_Guide_3rd_Edition.pdf",
+    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/_Java_The_Complete_Reference_13th_Ed_-_Herbert_Schildt%20(1).pdf",
     "inStock": true,
     "featured": true
   },
@@ -27,7 +27,7 @@
     "year": 2021,
     "pages": 1056,
     "isbn": "978-0070532465",
-    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/c++_A_Beginner_s_Guide,%20Second%20Edition%20by%20Herbert%20Schildt.pdf",
+    "pdf": "https://raw.githubusercontent.com/JamesCamba/Herbert-Schildt-E-Commerce/main/books-pdf/c++%20the%20complete%20reference,%204th%20edition%20-%20herbert%20schildt.pdf",
     "inStock": true,
     "featured": true
   },
@@ -112,5 +112,21 @@
     "featured": "",
     "goodsread": "https://www.goodreads.com/book/show/1672562.STL_Programming_from_the_Ground_Up",
     "noStock": true
+  },
+  {
+    "id": 8,
+    "title": "Teach Yourself C",
+    "author": "Herb Schildt",
+    "description": "Learn C programming fundamentals with clear explanations and practical examples.",
+    "price": 29.99,
+    "category": "c",
+    "rating": 4.5,
+    "image": "img/books/c.jpg",
+    "year": 2022,
+    "pages": 400,
+    "isbn": "978-1260454476",
+    "pdf": "https://www.amazon.fr/-/en/Herbert-Schildt/dp/0078823110",
+    "inStock": true,
+    "featured": false
   }
 ]
