@@ -58,9 +58,9 @@ def login():
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT "UserID", "Email", "Password", "FullName", "Blocked"
-        FROM "Users"
-        WHERE "Email" = %s AND "Password" = %s
+        SELECT userid, email, password, fullname, blocked
+        FROM users
+        WHERE email = %s AND password = %s
     """, (email, password))
 
     user = cursor.fetchone()
@@ -902,6 +902,7 @@ def home():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
 
 
 
