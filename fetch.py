@@ -216,12 +216,12 @@ def backup_databases():
 def get_users():
     conn = get_db_connection()
     cursor = conn.cursor()
-cursor.execute("""
-    SELECT "UserID", "FullName", "Email", "Password", "Cart",
-           "Paid_Book", "Date_Joined"
-    FROM "Users"
-    LIMIT 1000
-""")
+    cursor.execute("""
+        SELECT "UserID", "FullName", "Email", "Password", "Cart",
+               "Paid_Book", "Date_Joined"
+        FROM "Users"
+        LIMIT 1000
+    """)
     columns = [column[0] for column in cursor.description]
     users = [dict(zip(columns, row)) for row in cursor.fetchall()]
     conn.close()
@@ -901,6 +901,7 @@ def home():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
 
 
 
