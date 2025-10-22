@@ -39,9 +39,10 @@ def get_db_connection():
     return psycopg2.connect(
         os.getenv(
             "DATABASE_URL",
-            "postgresql://neondb_owner:npg_1MeBTYFx9XPN@ep-young-dawn-a1pvepi1-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+            "postgresql://neondb_owner:npg_1MeBTYFx9XPN@ep-young-dawn-a1pvepi1-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
         )
     )
+
 
 
 @app.route("/login", methods=["POST"])
@@ -901,6 +902,7 @@ def home():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
 
 
 
