@@ -17,8 +17,13 @@ from flask import jsonify
 import psycopg2
 
 BOOKS_JSON_PATH = os.path.join(os.getcwd(), "all-books.json")
-app = Flask(__name__, static_folder="", static_url_path="")
+app = Flask(__name__, static_folder=".", static_url_path="")
 CORS(app)  # ✅ Enable CORS for all routes
+
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory('.', path)
+
 
 # Database connection function (reusable)
 UPLOAD_COVERS = "img/books"
@@ -906,5 +911,6 @@ def home():
 if __name__ == "__main__":
 
     app.run(debug=True)
+
 
 
