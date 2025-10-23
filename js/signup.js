@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Check if email already exists
         try {
-            const res = await fetch("http://127.0.0.1:5000/get-users");
+            const res = await fetch("https://herbert-schildt-e-commerce-31.onrender.com/get-users");
             const users = await res.json();
             const emailExists = users.some(u => (u.Email || "").toLowerCase() === email.toLowerCase());
 
@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
             // Double-check duplicate email
-            const checkResponse = await fetch("http://127.0.0.1:5000/get-users");
+            const checkResponse = await fetch("https://herbert-schildt-e-commerce-31.onrender.com/get-users");
             const users = await checkResponse.json();
             const emailExists = users.some(u => (u.Email || "").toLowerCase() === email.toLowerCase());
 
