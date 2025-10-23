@@ -1,4 +1,4 @@
-const BASE_URL = "https://herbert-schildt-e-commerce-24.onrender.com";
+const BASE_URL = "https://herbert-schildt-e-commerce-31.onrender.com";
 
 class ShoppingCart {
     constructor() {
