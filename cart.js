@@ -20,7 +20,7 @@ class ShoppingCart {
         if (!this.currentUserEmail) return;
 
         try {
-            const response = await fetch("http://127.0.0.1:5000/get-cart", {
+            const response = await fetch(`${BASE_URL}/get-cart`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email: this.currentUserEmail })
@@ -33,13 +33,14 @@ class ShoppingCart {
         }
     }
 
+    const BASE_URL = "https://herbert-schildt-e-commerce-24.onrender.com";
     async addItem(book) {
         if (!this.currentUserEmail) return alert("Please log in first.");
 
         if (this.items.some(b => b.id === book.id)) return alert("This book is already in your cart!");
 
         try {
-            const response = await fetch("http://127.0.0.1:5000/add-to-cart", {
+            const response = await fetch(`${BASE_URL}/add-to-cart`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email: this.currentUserEmail, title: book.title })
@@ -60,7 +61,7 @@ class ShoppingCart {
         if (!this.currentUserEmail) return;
 
         try {
-            const response = await fetch("http://127.0.0.1:5000/remove-from-cart", {
+            const response = await fetch(`${BASE_URL}/remove-from-cart`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email: this.currentUserEmail, bookId })
@@ -82,7 +83,7 @@ class ShoppingCart {
         if (!confirm("Are you sure you want to clear the cart?")) return;
 
         try {
-            const response = await fetch("http://127.0.0.1:5000/clear-cart", {
+            const response = await fetch(`${BASE_URL}/clear-cart`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email: this.currentUserEmail })
