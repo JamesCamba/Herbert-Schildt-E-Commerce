@@ -20,7 +20,16 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 BOOKS_JSON_PATH = os.path.join(os.getcwd(), "all-books.json")
 app = Flask(__name__, static_folder=".", static_url_path="")
-CORS(app)  # ✅ Enable CORS for all routes
+CORS(app, resources={
+    r"/*": {
+        "origins": [
+            "https://herbert-schildt-e-commerce-glom.onrender.com",
+            "http://localhost:5000",
+            "http://127.0.0.1:5000"
+        ],
+        "supports_credentials": True
+    }
+})  # ✅ Enable CORS for all routes
 
 @app.route('/<path:path>')
 def serve_static(path):
@@ -923,6 +932,7 @@ def home():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
 
 
 
