@@ -253,7 +253,7 @@
 
                 try {
                     // Request cart from backend
-                    const response = await fetch("http://127.0.0.1:5000/get-cart", {
+                    const response = await fetch("https://herbert-schildt-e-commerce-31.onrender.com/get-cart", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ email: currentUser.email })
@@ -420,7 +420,7 @@ modalPreviewBtn.addEventListener("click", async () => {
                         if (!currentUser.fullName) {
                             console.log("FullName not in localStorage, fetching from backend");
                             try {
-                                const response = await fetch("http://127.0.0.1:5000/get-fullname", {
+                                const response = await fetch("https://herbert-schildt-e-commerce-31.onrender.com/get-fullname", {
                                     method: "POST",
                                     headers: { "Content-Type": "application/json" },
                                     body: JSON.stringify({ email: currentUser.email })
@@ -517,7 +517,7 @@ modalPreviewBtn.addEventListener("click", async () => {
 
                 try {
                     // Get user's paid books
-                    const response = await fetch("http://127.0.0.1:5000/get-paid-books", {
+                    const response = await fetch("https://herbert-schildt-e-commerce-31.onrender.com/get-paid-books", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ email: currentUser.email })
@@ -526,7 +526,7 @@ modalPreviewBtn.addEventListener("click", async () => {
                     const paidBooks = result.success ? result.paidBooks.map(title => title.trim()) : [];
 
                     // Load all books
-                    const booksResponse = await fetch("http://127.0.0.1:5000/get-books");
+                    const booksResponse = await fetch("https://herbert-schildt-e-commerce-31.onrender.com/get-books");
                     const books = await booksResponse.json();
 
                     const booksList = document.getElementById("booksList");
@@ -649,7 +649,7 @@ function savePreviewedBook(li) {
                 const title = bookItem.querySelector(".bookTitle").innerText.trim();
 
                 try {
-                    const response = await fetch("http://127.0.0.1:5000/add-to-cart", {
+                    const response = await fetch("https://herbert-schildt-e-commerce-31.onrender.com/add-to-cart", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ email: currentUser.email, title })
@@ -675,7 +675,7 @@ function savePreviewedBook(li) {
                 if (!currentUser || !currentUser.email) return alert("Please log in first.");
 
                 try {
-                    const response = await fetch("http://127.0.0.1:5000/add-to-cart", {
+                    const response = await fetch("https://herbert-schildt-e-commerce-31.onrender.com/add-to-cart", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ email: currentUser.email, title: book.title })
@@ -728,7 +728,7 @@ function savePreviewedBook(li) {
                 let total = 0;
 
                 try {
-                    const response = await fetch("http://127.0.0.1:5000/get-cart", {
+                    const response = await fetch("https://herbert-schildt-e-commerce-31.onrender.com/get-cart", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ email: currentUser.email })
@@ -786,7 +786,7 @@ function savePreviewedBook(li) {
                 }
 
                 try {
-                    const response = await fetch("http://127.0.0.1:5000/remove-from-cart", {
+                    const response = await fetch("https://herbert-schildt-e-commerce-31.onrender.com/remove-from-cart", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
@@ -831,7 +831,7 @@ function savePreviewedBook(li) {
 
                 if (currentUser?.email) {
                     try {
-                        const response = await fetch("http://127.0.0.1:5000/get-paid-books", {
+                        const response = await fetch("https://herbert-schildt-e-commerce-31.onrender.com/get-paid-books", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ email: currentUser.email })
@@ -885,7 +885,7 @@ function savePreviewedBook(li) {
                             downloadBtn.textContent = "Start Read";
                             downloadBtn.addEventListener("click", async () => {
                                 try {
-                                    const allBooksResp = await fetch("http://127.0.0.1:5000/get-books");
+                                    const allBooksResp = await fetch("https://herbert-schildt-e-commerce-31.onrender.com/get-books");
                                     const allBooks = await allBooksResp.json();
                                     const paidBook = allBooks.find(b => b.title === book.title);
 
