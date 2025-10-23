@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         try {
-            const response = await fetch("https://herbert-schildt-e-commerce-24.onrender.com/login", {
+            const response = await fetch("https://herbert-schildt-e-commerce-25.onrender.com/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
