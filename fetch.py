@@ -875,7 +875,7 @@ def signup():
         cursor.execute("""
             INSERT INTO users (fullname, email, password, date_joined, blocked, cart, paid_book)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """, (full_name, email, password, date_joined, None, "[]", "[]"))
+        """, (full_name, email, hashed_password, date_joined, None, "[]", "[]"))
 
         conn.commit()
         cursor.close()
@@ -923,6 +923,7 @@ def home():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
 
 
 
