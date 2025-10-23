@@ -1,3 +1,5 @@
+const BASE_URL = "https://herbert-schildt-e-commerce-24.onrender.com";
+
 class ShoppingCart {
     constructor() {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -33,7 +35,7 @@ class ShoppingCart {
         }
     }
 
-    const BASE_URL = "https://herbert-schildt-e-commerce-24.onrender.com";
+
     async addItem(book) {
         if (!this.currentUserEmail) return alert("Please log in first.");
 
