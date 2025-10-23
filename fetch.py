@@ -845,34 +845,37 @@ def signup():
     password = data.get('password', '').strip()
 
     if not full_name or not email or not password:
-        return jsonify({'success': False, 'message': 'All fields are required.'})
+        return jsonify({'success': False, 'message': 'All fields are required.'}), 400
 
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Check if email already exists
+        # ✅ Check if email already exists
         cursor.execute('SELECT COUNT(*) FROM users WHERE email = %s', (email,))
         if cursor.fetchone()[0] > 0:
-            return jsonify({'success': False, 'message': 'Email is already registered.'})
+            cursor.close()
+            conn.close()
+            return jsonify({'success': False, 'message': 'Email is already registered.'}), 409
 
-        # Insert new user with Date_Joined
+        # ✅ Insert new user with clean defaults
         date_joined = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         cursor.execute("""
             INSERT INTO users (fullname, email, password, date_joined, block, cart, paid_book)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """, (full_name, email, password, date_joined, 0, '', ''))
+        """, (full_name, email, password, date_joined, None, "[]", "[]"))
 
         conn.commit()
         cursor.close()
         conn.close()
 
-        return jsonify({'success': True, 'message': 'Account created successfully!'})
+        return jsonify({'success': True, 'message': 'Account created successfully!'}), 201
 
     except Exception as e:
         print("Signup error:", e)
-        return jsonify({'success': False, 'message': 'Failed to create account. Try again later.'})
+        return jsonify({'success': False, 'message': f'Failed to create account: {str(e)}'}), 500
+
 
 
 @app.route('/update-password', methods=['POST'])
@@ -903,6 +906,7 @@ def home():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
 
 
 
