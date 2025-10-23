@@ -15,6 +15,8 @@ sys.stdout.reconfigure(encoding='utf-8')
 from flask import Flask, send_from_directory
 from flask import jsonify
 import psycopg2
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 BOOKS_JSON_PATH = os.path.join(os.getcwd(), "all-books.json")
 app = Flask(__name__, static_folder=".", static_url_path="")
@@ -60,13 +62,19 @@ def login():
     cursor.execute("""
         SELECT userid, email, password, fullname, blocked
         FROM users
-        WHERE email = %s AND password = %s
-    """, (email, password))
+        WHERE email = %s
+    """, (email,))
 
     user = cursor.fetchone()
     conn.close()
 
     if user:
+        stored_hash = user[2]
+
+        # 🔐 Verify password using hash
+        if not check_password_hash(stored_hash, password):
+            return jsonify({"success": False, "message": "Invalid email or password"}), 401
+
         blocked_until = user[4]
         if blocked_until:
             now = datetime.now()
@@ -87,6 +95,7 @@ def login():
         }), 200
 
     return jsonify({"success": False, "message": "Invalid email or password"}), 401
+
 
 # @app.route("/test-add-book")
 # def test_add_book():
@@ -858,6 +867,8 @@ def signup():
             conn.close()
             return jsonify({'success': False, 'message': 'Email is already registered.'}), 409
 
+        # 🔒 Hash the password before storing
+        hashed_password = generate_password_hash(password)
         # ✅ Insert new user with clean defaults
         date_joined = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -890,14 +901,20 @@ def update_password():
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
+
+        # 🔒 Hash the new password before updating
+        hashed_password = generate_password_hash(new_password)
+
         cursor.execute(
-            'UPDATE users SET password = %s WHERE email = %s', (new_password, email))
+            'UPDATE users SET password = %s WHERE email = %s', (hashed_password, email))
         conn.commit()
         cursor.close()
         conn.close()
         return jsonify({'success': True, 'message': 'Password updated successfully'}), 200
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
+
+
 
 @app.route("/", methods=["GET"])
 def home():
@@ -906,6 +923,7 @@ def home():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
 
 
 
